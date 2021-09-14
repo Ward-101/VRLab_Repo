@@ -5,18 +5,56 @@ using UnityEngine.XR;
 
 public class Scr_HandPresence : MonoBehaviour
 {
+    public bool showController = false;
+    public InputDeviceCharacteristics controllerCharacteristics;
     public List<GameObject> controllerPrefabs;
+    public GameObject handModelPrefab;
 
-
+    private GameObject spawnedHandModel;
     private InputDevice targetDevice;
     private GameObject spawnedController;
+    private Animator handAnimator;
 
     private void Start()
     {
+        TryInitialize();
+    }
+
+
+    private void Update()
+    {
+        if (!targetDevice.isValid)
+        {
+            TryInitialize();
+        }
+        else
+        {
+            if (showController)
+            {
+                if (spawnedHandModel.activeSelf)
+                {
+                    spawnedHandModel.SetActive(false);
+                    spawnedController.SetActive(true);
+                }
+            }
+            else
+            {
+                if (spawnedController.activeSelf)
+                {
+                    spawnedController.SetActive(false);
+                    spawnedHandModel.SetActive(true);
+                }
+
+                UpdateHandAnimation();
+            }
+        }
+    }
+
+    private void TryInitialize()
+    {
         List<InputDevice> devices = new List<InputDevice>();
-        //InputDevices.GetDevices(devices);
-        InputDeviceCharacteristics rightControllerCharacteristics = InputDeviceCharacteristics.Right | InputDeviceCharacteristics.Controller;
-        InputDevices.GetDevicesWithCharacteristics(rightControllerCharacteristics, devices);
+
+        InputDevices.GetDevicesWithCharacteristics(controllerCharacteristics, devices);
 
         foreach (var item in devices)
         {
@@ -36,22 +74,30 @@ public class Scr_HandPresence : MonoBehaviour
                 Debug.LogError("Did not find corresponding controller model");
                 spawnedController = Instantiate(controllerPrefabs[0], this.transform);
             }
+
+            spawnedHandModel = Instantiate(handModelPrefab, this.transform);
+            handAnimator = spawnedHandModel.GetComponent<Animator>();
         }
     }
 
-    private void Update()
+    private void UpdateHandAnimation()
     {
-        if (targetDevice.TryGetFeatureValue(CommonUsages.primaryButton, out bool primaryButtonValue) && primaryButtonValue)
-        {
-            print("Pressing Primary Button");
-        }
         if (targetDevice.TryGetFeatureValue(CommonUsages.trigger, out float triggerValue) && triggerValue > 0.1f)
         {
-            print("Trigger Pressed : " + triggerValue);
-        }        
-        if (targetDevice.TryGetFeatureValue(CommonUsages.primary2DAxis, out Vector2 primary2DAxisValue) && primary2DAxisValue.magnitude != 0f)
+            handAnimator.SetFloat("Trigger", triggerValue);
+        }
+        else
         {
-            print("Primary Touchpad :" + primary2DAxisValue);
+            handAnimator.SetFloat("Trigger", 0);
+        }
+
+        if (targetDevice.TryGetFeatureValue(CommonUsages.grip, out float gripValue) && gripValue > 0.1f)
+        {
+            handAnimator.SetFloat("Grip", gripValue);
+        }
+        else
+        {
+            handAnimator.SetFloat("Grip", 0);
         }
     }
 }
