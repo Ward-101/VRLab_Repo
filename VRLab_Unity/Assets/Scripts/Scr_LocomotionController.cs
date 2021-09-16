@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class Scr_LocomotionController : MonoBehaviour
+public class SCR_LocomotionController : MonoBehaviour
 {
     public XRController teleportRay;
     public InputHelpers.Button teleportActivationButton;

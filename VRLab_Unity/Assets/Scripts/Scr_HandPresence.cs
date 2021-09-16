@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
 
-public class Scr_HandPresence : MonoBehaviour
+public class SCR_HandPresence : MonoBehaviour
 {
     public bool showController = false;
     public InputDeviceCharacteristics controllerCharacteristics;
