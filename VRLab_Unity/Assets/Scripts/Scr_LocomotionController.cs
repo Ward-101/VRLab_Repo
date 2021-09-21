@@ -9,11 +9,13 @@ public class SCR_LocomotionController : MonoBehaviour
     public InputHelpers.Button teleportActivationButton;
     public float activationThreshold = 0.1f;
 
+    public bool EnableTeleportRay { get; set; } = true;
+
     private void Update()
     {
         if (teleportRay)
         {
-            teleportRay.gameObject.SetActive(CheckIfActivated(teleportRay));
+            teleportRay.gameObject.SetActive(EnableTeleportRay && CheckIfActivated(teleportRay));
         }
     }
 
