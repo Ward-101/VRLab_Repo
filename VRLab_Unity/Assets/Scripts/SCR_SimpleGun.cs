@@ -12,7 +12,6 @@ public class SCR_SimpleGun : MonoBehaviour
     {
         //raycast forward 
         //player sound
-        Instantiate(MuzzleFlash, MuzzleAnchor.position, Quaternion.identity, MuzzleAnchor);
-        MuzzleAnchor.GetComponentInChildren<VisualEffect>().Play();
+        MuzzleFlash.GetComponentInChildren<VisualEffect>().Play();
     }
 }
