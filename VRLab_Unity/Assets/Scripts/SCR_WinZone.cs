@@ -18,13 +18,26 @@ public class SCR_WinZone : MonoBehaviour
     {
         if (other.tag == "Piece")
         {
-            colliderList.Add(other);
+            if (other.TryGetComponent(out SCR_PieceState pieceState))
+            {
+                if (!other.transform.GetComponent<SCR_PieceState>().IsGrab)
+                {
+                    colliderList.Add(other);
+                }
+            }
+            else
+            {
+                if (!other.transform.parent.parent.GetComponent<SCR_PieceState>().IsGrab)
+                {
+                    colliderList.Add(other);
+                }
+            }
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Piece")
+        if (other.tag == "Piece" && colliderList.Contains(other))
         {
             colliderList.Remove(other);
         }
