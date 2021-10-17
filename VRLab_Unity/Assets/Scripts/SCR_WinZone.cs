@@ -4,19 +4,21 @@ using UnityEngine;
 
 public class SCR_WinZone : MonoBehaviour
 {
-    public LayerMask pieceLayer;
-
     public float countdown;
+    private Material baseMat;
+    [SerializeField] private Material processMat;
+    [SerializeField] private Material winMat;
 
     private float startTime;
     private bool canCount;
 
     private List<Collider> colliderList = new List<Collider>();
- 
 
-    private void OnTriggerEnter(Collider other)
+    private MeshRenderer meshRenderer;
+ 
+    private void OnTriggerStay(Collider other)
     {
-        if (other.tag == "Piece")
+        if (!colliderList.Contains(other) && other.tag == "Piece")
         {
             if (other.TryGetComponent(out SCR_PieceState pieceState))
             {
@@ -32,6 +34,11 @@ public class SCR_WinZone : MonoBehaviour
                     colliderList.Add(other);
                 }
             }
+
+            if (colliderList.Count == 1)
+            {
+                StartCountdown();
+            }
         }
     }
 
@@ -40,30 +47,39 @@ public class SCR_WinZone : MonoBehaviour
         if (other.tag == "Piece" && colliderList.Contains(other))
         {
             colliderList.Remove(other);
+
+            if (colliderList.Count == 0)
+            {
+                EndCountdown();
+            }
         }
     }
 
-    private void StartCountdown()
+    private void Start()
     {
-        startTime = (float)AudioSettings.dspTime;
-        canCount = true;
+        meshRenderer = this.GetComponent<MeshRenderer>();
+        baseMat = meshRenderer.material;
     }
 
     private void Update()
     {
-        if (colliderList.Count > 0 && !canCount)
-        {
-            StartCountdown();
-        }
-        else if (colliderList.Count == 0)
-        {
-            canCount = false;
-        }
-
         if (canCount && AudioSettings.dspTime - startTime >= countdown)
         {
-            print("you win");
+            meshRenderer.material = winMat;
         }
+    }
+    private void StartCountdown()
+    {
+        startTime = (float)AudioSettings.dspTime;
+        canCount = true;
+        meshRenderer.material = processMat;
+    }
+
+    private void EndCountdown()
+    {
+        startTime = 0f;
+        canCount = false;
+        meshRenderer.material = baseMat;
     }
 
 }
