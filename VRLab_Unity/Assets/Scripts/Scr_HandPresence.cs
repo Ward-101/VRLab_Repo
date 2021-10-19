@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
-
+using Mirror;
 public class SCR_HandPresence : MonoBehaviour
 {
     public bool showController = false;
@@ -73,9 +73,11 @@ public class SCR_HandPresence : MonoBehaviour
             {
                 Debug.LogError("Did not find corresponding controller model");
                 spawnedController = Instantiate(controllerPrefabs[0], this.transform);
+                NetworkServer.Spawn(spawnedController);
             }
 
             spawnedHandModel = Instantiate(handModelPrefab, this.transform);
+            NetworkServer.Spawn(spawnedHandModel);
             handAnimator = spawnedHandModel.GetComponent<Animator>();
         }
     }
