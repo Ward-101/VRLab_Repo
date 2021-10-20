@@ -15,6 +15,8 @@ public class SCR_HandPresence : MonoBehaviour
     private GameObject spawnedController;
     private Animator handAnimator;
 
+    private Collider handCollider;
+
     private void Start()
     {
         TryInitialize();
@@ -46,6 +48,7 @@ public class SCR_HandPresence : MonoBehaviour
                 }
 
                 UpdateHandAnimation();
+                UpdateHandCollision();
             }
         }
     }
@@ -77,6 +80,7 @@ public class SCR_HandPresence : MonoBehaviour
 
             spawnedHandModel = Instantiate(handModelPrefab, this.transform);
             handAnimator = spawnedHandModel.GetComponent<Animator>();
+            handCollider = GetComponentInParent<Collider>();
         }
     }
 
@@ -98,6 +102,21 @@ public class SCR_HandPresence : MonoBehaviour
         else
         {
             handAnimator.SetFloat("Grip", 0);
+        }
+    }
+
+    /// <summary>
+    /// Très shetan tier à enlever au plus vite 
+    /// </summary>
+    private void UpdateHandCollision()
+    {
+        if (targetDevice.TryGetFeatureValue(CommonUsages.trigger, out float triggerValue) && triggerValue > 0.5f && targetDevice.TryGetFeatureValue(CommonUsages.grip, out float gripValue) && gripValue == 0)
+        {
+            handCollider.isTrigger = false;
+        }
+        else
+        {
+            handCollider.isTrigger = true;
         }
     }
 }
