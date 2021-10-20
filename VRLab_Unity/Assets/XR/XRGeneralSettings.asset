@@ -79,4 +79,3 @@ MonoBehaviour:
   m_Loaders:
   - {fileID: 11400000, guid: 64c387e6673c101459f794abe247d1ce, type: 2}
   - {fileID: 11400000, guid: 83eae0e165d7c90438f37f2e9367a835, type: 2}
-  - {fileID: 11400000, guid: 7a5ee34b0faa46c4d945f389f5dfff02, type: 2}
