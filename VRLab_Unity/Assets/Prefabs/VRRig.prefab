@@ -5031,6 +5031,7 @@ GameObject:
   - component: {fileID: 2454303859103493015}
   - component: {fileID: 2454303859103493004}
   - component: {fileID: 2454303859103493007}
+  - component: {fileID: 5464667163365733864}
   m_Layer: 7
   m_Name: VRRig
   m_TagString: Untagged
@@ -5219,6 +5220,38 @@ MonoBehaviour:
   showGizmos: 0
   showOverlay: 0
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+--- !u!114 &5464667163365733864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2454303859103493014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac3e5e0e1aa60be4ba3127bb9d94775b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  componentToDisable:
+  - {fileID: 2454303859103493012}
+  - {fileID: 2454303859103493013}
+  - {fileID: 2454303859103493002}
+  - {fileID: 2454303859103493003}
+  - {fileID: 2454303859103493000}
+  - {fileID: 2454303859103493001}
+  - {fileID: 2454303859133500219}
+  - {fileID: 2454303858747051768}
+  - {fileID: 2454303858747051769}
+  - {fileID: 2454303859425488984}
+  - {fileID: 2454303859425488987}
+  - {fileID: 2454303859338189823}
+  - {fileID: 2454303859338189810}
+  - {fileID: 2454303859338189820}
+  - {fileID: 2454303859338189820}
+  - {fileID: 2454303859133500218}
+  - {fileID: 2454303859133500165}
 --- !u!1 &2454303859133500166
 GameObject:
   m_ObjectHideFlags: 0
