@@ -5154,8 +5154,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teleportRay: {fileID: 0}
+  rightHand: {fileID: 2454303858747051769}
+  lefttHand: {fileID: 2454303859425488984}
   teleportActivationButton: 0
   activationThreshold: 0.1
+  handLeftAnimator: {fileID: 0}
+  handRightAnimator: {fileID: 0}
 --- !u!143 &2454303859103493015
 CharacterController:
   m_ObjectHideFlags: 0

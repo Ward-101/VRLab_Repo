@@ -10,7 +10,7 @@ public class SCR_HandPresence : MonoBehaviour
     public List<GameObject> controllerPrefabs;
     public GameObject handModelPrefab;
 
-    private GameObject spawnedHandModel;
+    public GameObject spawnedHandModel;
     private InputDevice targetDevice;
     private GameObject spawnedController;
     private Animator handAnimator;
@@ -79,6 +79,10 @@ public class SCR_HandPresence : MonoBehaviour
             spawnedHandModel = Instantiate(handModelPrefab, this.transform);
             NetworkServer.Spawn(spawnedHandModel);
             handAnimator = spawnedHandModel.GetComponent<Animator>();
+        }
+        if (targetDevice.TryGetFeatureValue(CommonUsages.gripButton, out bool triggerValue) && triggerValue)
+        {
+            Debug.Log("yo");
         }
     }
 
