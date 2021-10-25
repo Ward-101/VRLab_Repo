@@ -39,11 +39,11 @@ public class SCR_HandPresence : MonoBehaviour
             }
             else
             {
-                if (spawnedController.activeSelf)
+                /*if (spawnedController.activeSelf)
                 {
                     spawnedController.SetActive(false);
                     spawnedHandModel.SetActive(true);
-                }
+                }*/
 
                 UpdateHandAnimation();
             }
@@ -64,7 +64,7 @@ public class SCR_HandPresence : MonoBehaviour
         if (devices.Count > 0)
         {
             targetDevice = devices[0];
-            GameObject prefab = controllerPrefabs.Find(controller => controller.name == targetDevice.name);
+            /*GameObject prefab = controllerPrefabs.Find(controller => controller.name == targetDevice.name);
             if (prefab)
             {
                 spawnedController = Instantiate(prefab, this.transform);
@@ -75,7 +75,7 @@ public class SCR_HandPresence : MonoBehaviour
                 spawnedController = Instantiate(controllerPrefabs[0], this.transform);
                 NetworkServer.Spawn(spawnedController);
             }
-
+*/
             spawnedHandModel = Instantiate(handModelPrefab, this.transform);
             NetworkServer.Spawn(spawnedHandModel);
             handAnimator = spawnedHandModel.GetComponent<Animator>();
