@@ -194,7 +194,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.xr.interaction.toolkit": {
-      "version": "1.0.0-pre.5",
+      "version": "1.0.0-pre.6",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -211,7 +211,7 @@
       "depth": 1,
       "source": "registry",
       "dependencies": {
-        "com.unity.subsystemregistration": "1.0.6"
+        "com.unity.subsystemregistration": "1.0.5"
       },
       "url": "https://packages.unity.com"
     },
