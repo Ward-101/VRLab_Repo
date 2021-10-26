@@ -9,6 +9,7 @@ public class SCR_LocomotionController : MonoBehaviour
     public XRController rightHand;
     public XRController lefttHand;
     public InputHelpers.Button teleportActivationButton;
+    public InputHelpers.Button fingerButton;
     public float activationThreshold = 0.1f;
 
     public bool EnableTeleportRay { get; set; } = true;
@@ -24,7 +25,7 @@ public class SCR_LocomotionController : MonoBehaviour
         }
         if (rightHand)
         {
-            InputHelpers.IsPressed(rightHand.inputDevice, InputHelpers.Button.Primary2DAxisClick, out bool isPressed);
+            InputHelpers.IsPressed(rightHand.inputDevice, fingerButton, out bool isPressed);
             if (isPressed && !cantpressRight)
             {
                 if (handRightAnimator == null)
@@ -36,7 +37,7 @@ public class SCR_LocomotionController : MonoBehaviour
         }
         if (lefttHand)
         {
-            InputHelpers.IsPressed(lefttHand.inputDevice, InputHelpers.Button.Primary2DAxisClick, out bool isPressed);
+            InputHelpers.IsPressed(lefttHand.inputDevice, fingerButton, out bool isPressed);
             if (isPressed && !cantPressLeft)
             {
                 if (handLeftAnimator == null)

@@ -5157,6 +5157,7 @@ MonoBehaviour:
   rightHand: {fileID: 2454303858747051769}
   lefttHand: {fileID: 2454303859425488984}
   teleportActivationButton: 0
+  fingerButton: 4
   activationThreshold: 0.1
   handLeftAnimator: {fileID: 0}
   handRightAnimator: {fileID: 0}
