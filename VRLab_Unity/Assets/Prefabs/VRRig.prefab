@@ -5094,7 +5094,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2454303859103493014}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc4f2c0214c9b494fa7eb5b8b2c02885, type: 3}
   m_Name: 
@@ -5115,7 +5115,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2454303859103493014}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 01f69dc1cb084aa42b2f2f8cd87bc770, type: 3}
   m_Name: 
@@ -5157,12 +5157,14 @@ MonoBehaviour:
   rightHand: {fileID: 2454303858747051769}
   lefttHand: {fileID: 2454303859425488984}
   teleportActivationButton: 0
-  fingerButton: 4
+  fingerButton: 2
+  gripBtton: 3
   leftHandColider: {fileID: 2454303859425488986}
   rightHandColider: {fileID: 2454303858747051771}
   activationThreshold: 0.1
   handLeftAnimator: {fileID: 0}
   handRightAnimator: {fileID: 0}
+  deltaLeft: {x: 0, y: 0, z: 0}
 --- !u!143 &2454303859103493015
 CharacterController:
   m_ObjectHideFlags: 0
@@ -5172,7 +5174,7 @@ CharacterController:
   m_GameObject: {fileID: 2454303859103493014}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Height: 1.8
   m_Radius: 0.15
@@ -5413,7 +5415,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2454303859338189811
 Transform:
   m_ObjectHideFlags: 0

@@ -52,7 +52,7 @@ public class SCR_ContinuousMovement : MonoBehaviour
         }
 
         //Never have to move func in the same update !!!
-        characterController.Move(Vector3.up * fallingSpeed * Time.fixedDeltaTime);
+        //characterController.Move(Vector3.up * fallingSpeed * Time.fixedDeltaTime);
 
     }
 
