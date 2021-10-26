@@ -10,19 +10,23 @@ public class SCR_LocomotionController : MonoBehaviour
     public XRController lefttHand;
     public InputHelpers.Button teleportActivationButton;
     public InputHelpers.Button fingerButton;
+    public SphereCollider leftHandColider;
+    public SphereCollider rightHandColider;
     public float activationThreshold = 0.1f;
 
     public bool EnableTeleportRay { get; set; } = true;
 
     public Animator handLeftAnimator;
     public Animator handRightAnimator;
+
+    private bool isFingerLeft, isFingerRight;
     private bool cantPressLeft, cantpressRight;
     private void Update()
     {
-        if (teleportRay)
+        /*if (teleportRay)
         {
             teleportRay.gameObject.SetActive(EnableTeleportRay && CheckIfActivated(teleportRay));
-        }
+        }*/
         if (rightHand)
         {
             InputHelpers.IsPressed(rightHand.inputDevice, fingerButton, out bool isPressed);
@@ -30,8 +34,9 @@ public class SCR_LocomotionController : MonoBehaviour
             {
                 if (handRightAnimator == null)
                     handRightAnimator = rightHand.GetComponent<XRController>().modelParent.GetComponentInChildren<SCR_HandPresence>().spawnedHandModel.GetComponent<Animator>();
-                handRightAnimator.SetBool("FingerOn", !handRightAnimator.GetBool("FingerOn"));
-
+                isFingerRight = !isFingerRight;
+                rightHandColider.enabled = !isFingerRight;
+                handRightAnimator.SetBool("FingerOn", isFingerRight);
                 StartCoroutine(TresholdRight());
             }
         }
@@ -42,6 +47,8 @@ public class SCR_LocomotionController : MonoBehaviour
             {
                 if (handLeftAnimator == null)
                     handLeftAnimator = lefttHand.GetComponent<XRController>().modelParent.GetComponentInChildren<SCR_HandPresence>().spawnedHandModel.GetComponent<Animator>();
+                isFingerLeft = !isFingerLeft;
+                leftHandColider.enabled = !isFingerLeft;
                 handLeftAnimator.SetBool("FingerOn", !handLeftAnimator.GetBool("FingerOn"));
                 StartCoroutine(TresholdLeft());
             }
@@ -63,9 +70,9 @@ public class SCR_LocomotionController : MonoBehaviour
 
     }
 
-    public bool CheckIfActivated(XRController controller)
+    /*public bool CheckIfActivated(XRController controller)
     {
         InputHelpers.IsPressed(controller.inputDevice, teleportActivationButton, out bool isActivated, activationThreshold);
         return isActivated;
-    } 
+    } */
 }

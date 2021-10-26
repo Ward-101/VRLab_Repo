@@ -35,10 +35,10 @@ public class SCR_ContinuousMovement : MonoBehaviour
     {
         CapsuleFollowHead();
 
-        Quaternion headYaw = Quaternion.Euler(0, rig.cameraGameObject.transform.eulerAngles.y, 0);
+       /* Quaternion headYaw = Quaternion.Euler(0, rig.cameraGameObject.transform.eulerAngles.y, 0);
         Vector3 direction = headYaw * new Vector3(inputAxis.x, 0, inputAxis.y);
 
-        characterController.Move(direction * Time.fixedDeltaTime * characterSpeed);
+        characterController.Move(direction * Time.fixedDeltaTime * characterSpeed);*/
 
         //gravity
         isGrounded = CheckIfGrounded();
