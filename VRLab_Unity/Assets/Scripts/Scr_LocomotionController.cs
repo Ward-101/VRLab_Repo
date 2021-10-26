@@ -30,9 +30,8 @@ public class SCR_LocomotionController : MonoBehaviour
                 if (handRightAnimator == null)
                     handRightAnimator = rightHand.GetComponent<XRController>().modelParent.GetComponentInChildren<SCR_HandPresence>().spawnedHandModel.GetComponent<Animator>();
                 handRightAnimator.SetBool("FingerOn", !handRightAnimator.GetBool("FingerOn"));
-                cantpressRight = true;
 
-                StartCoroutine(Treshold(cantpressRight));
+                StartCoroutine(TresholdRight());
             }
         }
         if (lefttHand)
@@ -42,17 +41,24 @@ public class SCR_LocomotionController : MonoBehaviour
             {
                 if (handLeftAnimator == null)
                     handLeftAnimator = lefttHand.GetComponent<XRController>().modelParent.GetComponentInChildren<SCR_HandPresence>().spawnedHandModel.GetComponent<Animator>();
-                handLeftAnimator.SetBool("FingerOn", !handRightAnimator.GetBool("FingerOn"));
-                cantPressLeft = true;
-                StartCoroutine(Treshold(cantPressLeft));
+                handLeftAnimator.SetBool("FingerOn", !handLeftAnimator.GetBool("FingerOn"));
+                StartCoroutine(TresholdLeft());
             }
         }
 
     }
-    IEnumerator Treshold(bool canPress)
+    IEnumerator TresholdRight()
     {
-        yield return new WaitForSeconds(0.5f);
-        canPress = false;
+        cantpressRight = true;
+        yield return new WaitForSeconds(0.2f);
+        cantpressRight = false;
+
+    }
+    IEnumerator TresholdLeft()
+    {
+        cantPressLeft = true;
+        yield return new WaitForSeconds(0.2f);
+        cantPressLeft = false;
 
     }
 
