@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
-
+using Mirror;
 public class SCR_LocomotionController : MonoBehaviour
 {
     public XRController teleportRay;
@@ -25,6 +25,7 @@ public class SCR_LocomotionController : MonoBehaviour
 
     public Animator handLeftAnimator;
     public Animator handRightAnimator;
+    public GameObject table;
 
     private bool isFingerLeft, isFingerRight;
     private bool cantPressLeft, cantpressRight;
@@ -35,9 +36,14 @@ public class SCR_LocomotionController : MonoBehaviour
     public float deltaLeft;
     private float deltaRight;
     private Transform tableTransform;
+    private bool isPressTable;
+    private bool spawnOnce;
     private void Start()
     {
         tableTransform = GameObject.FindGameObjectWithTag("Table").transform;
+        GameObject _table = Instantiate(table, transform);
+        NetworkServer.Spawn(_table);
+        TableManagment.instance.table = _table;
     }
     private void Update()
     {
@@ -50,6 +56,7 @@ public class SCR_LocomotionController : MonoBehaviour
             InputHelpers.IsPressed(lefttHand.inputDevice, fingerButton, out  ispressLeftTrigger);
             InputHelpers.IsPressed(lefttHand.inputDevice, gripBtton, out  ispressLeftGrip);
             InputHelpers.IsPressed(rightHand.inputDevice, gripBtton, out  isPressRightGrip);
+            InputHelpers.IsPressed(rightHand.inputDevice, InputHelpers.Button.SecondaryButton, out isPressTable);
 
         if (canMove)
         {
@@ -69,6 +76,14 @@ public class SCR_LocomotionController : MonoBehaviour
             }
 
 
+        }
+        else if (isPressTable)
+        {
+            if (!spawnOnce)
+            {
+                TableManagment.instance.ActiavetTetro();
+                spawnOnce = true;
+            }
         }
         else if(canMove)
         {
@@ -100,7 +115,10 @@ public class SCR_LocomotionController : MonoBehaviour
             }
         }
         
-
+        if(!isPressTable && spawnOnce)
+        {
+            spawnOnce = false;
+        }
 
     }
     IEnumerator TresholdRight()

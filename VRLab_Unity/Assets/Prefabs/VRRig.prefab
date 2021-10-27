@@ -5166,6 +5166,7 @@ MonoBehaviour:
   ySpeed: -2
   handLeftAnimator: {fileID: 0}
   handRightAnimator: {fileID: 0}
+  table: {fileID: 3190816086012054188, guid: 18a78ee7a1f52934ca51e2426bdae5bc, type: 3}
   deltaLeft: 0
 --- !u!143 &2454303859103493015
 CharacterController:
