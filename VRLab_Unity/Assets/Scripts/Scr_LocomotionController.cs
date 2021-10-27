@@ -11,6 +11,7 @@ public class SCR_LocomotionController : MonoBehaviour
     public InputHelpers.Button teleportActivationButton;
     public InputHelpers.Button fingerButton;
     public InputHelpers.Button gripBtton;
+    public InputHelpers.Button spawnButton;
     public SphereCollider leftHandColider;
     public SphereCollider rightHandColider;
     public float activationThreshold = 0.1f;
@@ -56,7 +57,7 @@ public class SCR_LocomotionController : MonoBehaviour
             InputHelpers.IsPressed(lefttHand.inputDevice, fingerButton, out  ispressLeftTrigger);
             InputHelpers.IsPressed(lefttHand.inputDevice, gripBtton, out  ispressLeftGrip);
             InputHelpers.IsPressed(rightHand.inputDevice, gripBtton, out  isPressRightGrip);
-            InputHelpers.IsPressed(rightHand.inputDevice, InputHelpers.Button.SecondaryButton, out isPressTable);
+            InputHelpers.IsPressed(rightHand.inputDevice, spawnButton, out isPressTable);
 
         if (canMove)
         {

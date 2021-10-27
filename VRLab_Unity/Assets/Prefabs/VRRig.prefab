@@ -5159,6 +5159,7 @@ MonoBehaviour:
   teleportActivationButton: 0
   fingerButton: 2
   gripBtton: 3
+  spawnButton: 11
   leftHandColider: {fileID: 2454303859425488986}
   rightHandColider: {fileID: 2454303858747051771}
   activationThreshold: 0.1
