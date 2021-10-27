@@ -5162,9 +5162,11 @@ MonoBehaviour:
   leftHandColider: {fileID: 2454303859425488986}
   rightHandColider: {fileID: 2454303858747051771}
   activationThreshold: 0.1
+  anglePower: 2
+  ySpeed: -2
   handLeftAnimator: {fileID: 0}
   handRightAnimator: {fileID: 0}
-  deltaLeft: {x: 0, y: 0, z: 0}
+  deltaLeft: 0
 --- !u!143 &2454303859103493015
 CharacterController:
   m_ObjectHideFlags: 0

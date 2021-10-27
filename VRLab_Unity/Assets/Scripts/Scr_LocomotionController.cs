@@ -14,6 +14,12 @@ public class SCR_LocomotionController : MonoBehaviour
     public SphereCollider leftHandColider;
     public SphereCollider rightHandColider;
     public float activationThreshold = 0.1f;
+    [Header("Movement")]
+    public float anglePower=5;
+    /// <summary>
+    /// If negative will invers the vertical axe
+    /// </summary>
+    public float ySpeed;
 
     public bool EnableTeleportRay { get; set; } = true;
 
@@ -24,11 +30,9 @@ public class SCR_LocomotionController : MonoBehaviour
     private bool cantPressLeft, cantpressRight;
     private bool ispressLeftTrigger, isPressRightTrigger, ispressLeftGrip, isPressRightGrip;
     private bool canMove;
-    private Vector3 initMovementRight;
-    private Vector3 movementRight;
-    private Vector3 initMovemntLeft;
-    private Vector3 movemntLeft;
-    public Vector3 deltaLeft;
+    private Vector3 initMidle;
+    private Vector3 movementMidle;
+    public float deltaLeft;
     private float deltaRight;
     private Transform tableTransform;
     private void Start()
@@ -49,10 +53,11 @@ public class SCR_LocomotionController : MonoBehaviour
 
         if (canMove)
         {
-            movemntLeft = lefttHand.transform.position;
-            movementRight = rightHand.transform.position;
-            deltaLeft = (movemntLeft - initMovemntLeft).magnitude * transform.forward;
-            transform.RotateAround(tableTransform.position, Vector3.up, deltaLeft.magnitude);
+            movementMidle =  Vector3.Lerp(lefttHand.transform.localPosition, rightHand.transform.localPosition, 0.5f);
+            deltaLeft = Vector3.SignedAngle(movementMidle,initMidle,Vector3.up);
+            transform.RotateAround(tableTransform.position, Vector3.up, deltaLeft*anglePower);
+            transform.position += Vector3.up * (movementMidle.y - initMidle.y)*ySpeed;
+            initMidle = movementMidle;
         }
 
         if (ispressLeftGrip && ispressLeftTrigger && isPressRightGrip && isPressRightTrigger )
@@ -60,8 +65,7 @@ public class SCR_LocomotionController : MonoBehaviour
             if (!canMove)
             {
                 canMove = true;
-                initMovementRight = rightHand.transform.position;
-                initMovemntLeft = lefttHand.transform.position;
+                initMidle = Vector3.Lerp(lefttHand.transform.localPosition,rightHand.transform.localPosition, 0.5f);
             }
 
 
@@ -69,7 +73,7 @@ public class SCR_LocomotionController : MonoBehaviour
         else if(canMove)
         {
             canMove = false;
-            deltaLeft = Vector3.zero;
+            deltaLeft = 0;
             deltaRight = 0;
         }
         else
