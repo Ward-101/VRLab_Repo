@@ -5167,6 +5167,7 @@ MonoBehaviour:
   activationThreshold: 0.1
   anglePower: 2
   ySpeed: -2
+  zSpeed: 0
   handLeftAnimator: {fileID: 0}
   handRightAnimator: {fileID: 0}
   table: {fileID: 3190816086012054188, guid: 18a78ee7a1f52934ca51e2426bdae5bc, type: 3}
