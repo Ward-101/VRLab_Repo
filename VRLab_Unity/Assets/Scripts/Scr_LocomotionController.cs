@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using Mirror;
-public class SCR_LocomotionController : MonoBehaviour
+public class SCR_LocomotionController : NetworkBehaviour
 {
     public XRController teleportRay;
     public XRController rightHand;
@@ -44,10 +44,13 @@ public class SCR_LocomotionController : MonoBehaviour
     private void Start()
     {
         tableTransform = GameObject.FindGameObjectWithTag("Table").transform;
-        GameObject _table = Instantiate(table, transform);
-        NetworkServer.Spawn(_table);
+       
+            GameObject _table = Instantiate(table, transform);
         tableManagment = _table.GetComponent<TableManagment>();
+
         tableManagment.tableFollow = tablefolow;
+        if (!isLocalPlayer)
+            tableManagment.enabled = false;
     }
     private void Update()
     {
@@ -85,7 +88,8 @@ public class SCR_LocomotionController : MonoBehaviour
         {
             if (!spawnOnce)
             {
-                tableManagment.ActiavetTetro();
+                var objectToSpawn=  tableManagment.ActiavetTetro();
+                CmdSpawntetro(objectToSpawn);
                 spawnOnce = true;
             }
         }
@@ -98,24 +102,47 @@ public class SCR_LocomotionController : MonoBehaviour
         else
         {
             if (!canMove)
-                if (isPressRightTrigger && !cantpressRight)
+                if (isPressRightTrigger)
                 {
-                    if (handRightAnimator == null)
-                        handRightAnimator = rightHand.GetComponent<XRController>().modelParent.GetComponentInChildren<SCR_HandPresence>().spawnedHandModel.GetComponent<Animator>();
-                    isFingerRight = !isFingerRight;
-                    rightHandColider.enabled = !isFingerRight;
-                    handRightAnimator.SetBool("FingerOn", isFingerRight);
-                    StartCoroutine(TresholdRight());
+                    if (!isFingerRight)
+                    {
+                        if (handRightAnimator == null)
+                            handRightAnimator = rightHand.GetComponent<XRController>().modelParent.GetComponentInChildren<SCR_HandPresence>().spawnedHandModel.GetComponent<Animator>();
+                        isFingerRight = true;
+                        rightHandColider.enabled = !isFingerRight;
+                        handRightAnimator.SetBool("FingerOn", isFingerRight);
+                        //StartCoroutine(TresholdRight());
+                    }                    
+                }
+                else
+                {
+                    if (isFingerRight)
+                    {
+                        isFingerRight = false;
+                        rightHandColider.enabled = !isFingerRight;
+                        handRightAnimator.SetBool("FingerOn", isFingerRight);
+                    }
                 }
 
-            if (ispressLeftTrigger && !cantPressLeft)
+            if (ispressLeftTrigger )
             {
-                if (handLeftAnimator == null)
-                    handLeftAnimator = lefttHand.GetComponent<XRController>().modelParent.GetComponentInChildren<SCR_HandPresence>().spawnedHandModel.GetComponent<Animator>();
-                isFingerLeft = !isFingerLeft;
-                leftHandColider.enabled = !isFingerLeft;
-                handLeftAnimator.SetBool("FingerOn", !handLeftAnimator.GetBool("FingerOn"));
-                StartCoroutine(TresholdLeft());
+                if (!isFingerLeft)
+                {
+                    if (handLeftAnimator == null)
+                        handLeftAnimator = lefttHand.GetComponent<XRController>().modelParent.GetComponentInChildren<SCR_HandPresence>().spawnedHandModel.GetComponent<Animator>();
+                    isFingerLeft = true;
+                    leftHandColider.enabled = !isFingerLeft;
+                    handLeftAnimator.SetBool("FingerOn", isFingerLeft);
+                }
+            }
+            else
+            {
+                if (isFingerLeft)
+                {
+                    isFingerLeft = false;
+                    leftHandColider.enabled = !isFingerLeft;
+                    handLeftAnimator.SetBool("FingerOn", isFingerLeft);
+                }
             }
         }
         
@@ -124,6 +151,14 @@ public class SCR_LocomotionController : MonoBehaviour
             spawnOnce = false;
         }
 
+    }
+    [Command]
+    private void CmdSpawntetro(GameObject[] objectToSpawn)
+    {
+        foreach (var item in objectToSpawn)
+        {
+            NetworkServer.Spawn(item);
+        }
     }
     IEnumerator TresholdRight()
     {

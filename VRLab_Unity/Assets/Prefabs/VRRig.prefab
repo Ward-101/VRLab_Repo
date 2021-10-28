@@ -5153,13 +5153,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a47d9d662a0f1ec41874ffa905855346, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   teleportRay: {fileID: 0}
   rightHand: {fileID: 2454303858747051769}
   lefttHand: {fileID: 2454303859425488984}
   teleportActivationButton: 0
   fingerButton: 2
   gripBtton: 3
-  spawnButton: 11
+  spawnButton: 8
   leftHandColider: {fileID: 2454303859425488986}
   rightHandColider: {fileID: 2454303858747051771}
   activationThreshold: 0.1
