@@ -21,6 +21,7 @@ public class SCR_LocomotionController : NetworkBehaviour
     /// If negative will invers the vertical axe
     /// </summary>
     public float ySpeed;
+    public float zSpeed;
 
     public bool EnableTeleportRay { get; set; } = true;
 
@@ -68,9 +69,10 @@ public class SCR_LocomotionController : NetworkBehaviour
         if (canMove)
         {
             movementMidle =  Vector3.Lerp(lefttHand.transform.localPosition, rightHand.transform.localPosition, 0.5f);
-            deltaLeft = Vector3.SignedAngle(movementMidle,initMidle,Vector3.up);
+            deltaLeft = Vector3.SignedAngle(new Vector3( movementMidle.magnitude,0,0), new Vector3(initMidle.magnitude, 0, 0), Vector3.up);
             transform.RotateAround(tableTransform.position, Vector3.up, deltaLeft*anglePower);
             transform.position += Vector3.up * (movementMidle.y - initMidle.y)*ySpeed;
+            transform.position += Vector3.forward * (movementMidle.z - initMidle.z)*zSpeed;
             initMidle = movementMidle;
         }
 
