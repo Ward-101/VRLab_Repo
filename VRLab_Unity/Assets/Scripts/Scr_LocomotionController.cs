@@ -27,6 +27,7 @@ public class SCR_LocomotionController : MonoBehaviour
     public Animator handLeftAnimator;
     public Animator handRightAnimator;
     public GameObject table;
+    public Transform tablefolow;
 
     private bool isFingerLeft, isFingerRight;
     private bool cantPressLeft, cantpressRight;
@@ -39,12 +40,14 @@ public class SCR_LocomotionController : MonoBehaviour
     private Transform tableTransform;
     private bool isPressTable;
     private bool spawnOnce;
+    private TableManagment tableManagment;
     private void Start()
     {
         tableTransform = GameObject.FindGameObjectWithTag("Table").transform;
         GameObject _table = Instantiate(table, transform);
         NetworkServer.Spawn(_table);
-        TableManagment.instance.table = _table;
+        tableManagment = _table.GetComponent<TableManagment>();
+        tableManagment.tableFollow = tablefolow;
     }
     private void Update()
     {
@@ -82,7 +85,7 @@ public class SCR_LocomotionController : MonoBehaviour
         {
             if (!spawnOnce)
             {
-                TableManagment.instance.ActiavetTetro();
+                tableManagment.ActiavetTetro();
                 spawnOnce = true;
             }
         }

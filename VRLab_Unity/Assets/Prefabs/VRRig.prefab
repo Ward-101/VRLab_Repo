@@ -5094,7 +5094,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2454303859103493014}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc4f2c0214c9b494fa7eb5b8b2c02885, type: 3}
   m_Name: 
@@ -5168,6 +5168,7 @@ MonoBehaviour:
   handLeftAnimator: {fileID: 0}
   handRightAnimator: {fileID: 0}
   table: {fileID: 3190816086012054188, guid: 18a78ee7a1f52934ca51e2426bdae5bc, type: 3}
+  tablefolow: {fileID: 2454303859133500167}
   deltaLeft: 0
 --- !u!143 &2454303859103493015
 CharacterController:

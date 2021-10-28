@@ -9,18 +9,19 @@ public class TableManagment : MonoBehaviour
     public GameObject[] tetro2;
     public GameObject[] flockMen;
     private int gameObjectActived;
-
-    public static TableManagment instance;
-    public GameObject table;
-
-    private void Awake()
+    private Vector3 initPos;
+    public Transform tableFollow;
+    public Transform _transform;
+    private void Start()
     {
-        if (instance != null)
-        {
-            Destroy(gameObject);
-        }
-        else instance = this;
+        initPos = _transform.position;
     }
+/*    private void Update()
+    {
+        _transform.position = tableFollow.position+initPos;
+    }
+*/
+
     public void ActiavetTetro()
     {
         tetro1[gameObjectActived].SetActive(true);
