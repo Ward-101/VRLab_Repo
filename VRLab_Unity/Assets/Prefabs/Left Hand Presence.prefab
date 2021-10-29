@@ -51,6 +51,7 @@ MonoBehaviour:
   - {fileID: 8650572954932092347, guid: baaa970bdeece9e45ac1c0787a9a3e68, type: 3}
   - {fileID: 6994738649229337237, guid: 28fc2bc32271ed047a2a4bf10f78e98e, type: 3}
   handModelPrefab: {fileID: 109434732395284509, guid: 65847589f926b734d9eaed6e25f0046b, type: 3}
+  spawnedHandModel: {fileID: 0}
 --- !u!114 &1362839134520244988
 MonoBehaviour:
   m_ObjectHideFlags: 0
