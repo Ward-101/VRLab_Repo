@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
 using Mirror;
+
 public class SCR_HandPresence : NetworkBehaviour
 {
     public bool showController = false;
@@ -16,6 +17,8 @@ public class SCR_HandPresence : NetworkBehaviour
     private GameObject spawnedController;
     private Animator handAnimator;
 
+    private Collider indexCollider;
+
     private IEnumerator Start()
     {
         parent = GetComponentInParent<SCR_LocomotionController>();
@@ -23,6 +26,9 @@ public class SCR_HandPresence : NetworkBehaviour
             this.enabled = false;
         yield return new WaitUntil(() => NetworkClient.ready);
         yield return new WaitForSeconds(0.5f);
+
+        indexCollider = transform.GetChild(0).GetComponentInChildren<Collider>();
+
         TryInitialize();
     }
 
@@ -96,10 +102,21 @@ public class SCR_HandPresence : NetworkBehaviour
         if (targetDevice.TryGetFeatureValue(CommonUsages.trigger, out float triggerValue) && triggerValue > 0.1f)
         {
             handAnimator.SetFloat("Trigger", triggerValue);
+
+            if (triggerValue > 0.5f)
+            {
+                indexCollider.isTrigger = false;
+            }
+            else
+            {
+                indexCollider.isTrigger = true;
+            }
         }
         else
         {
             handAnimator.SetFloat("Trigger", 0);
+
+            indexCollider.isTrigger = true;
         }
 
         if (targetDevice.TryGetFeatureValue(CommonUsages.grip, out float gripValue) && gripValue > 0.1f)

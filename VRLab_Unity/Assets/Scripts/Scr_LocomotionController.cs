@@ -51,7 +51,7 @@ public class SCR_LocomotionController : NetworkBehaviour
     {
         tableTransform = GameObject.FindGameObjectWithTag("Table").transform;
        
-       GameObject _table = Instantiate(table, transform);
+        GameObject _table = Instantiate(table, transform);
         tableManagment = _table.GetComponent<TableManagment>();
 
         tableManagment.tableFollow = tablefolow;
@@ -90,7 +90,7 @@ public class SCR_LocomotionController : NetworkBehaviour
             initMidle = movementMidle;
         }
 
-        if (ispressLeftGrip && ispressLeftTrigger && isPressRightGrip && isPressRightTrigger )
+        if (ispressLeftGrip && ispressLeftTrigger && isPressRightGrip && isPressRightTrigger)
         {
             if (!canMove)
             {
@@ -126,8 +126,8 @@ public class SCR_LocomotionController : NetworkBehaviour
                         if (handRightAnimator == null)
                             handRightAnimator = rightHand.GetComponent<XRController>().modelParent.GetComponentInChildren<SCR_HandPresence>().spawnedHandModel.GetComponent<Animator>();
                         isFingerRight = true;
-                        rightHandColider.enabled = !isFingerRight;
-                        handRightAnimator.SetBool("FingerOn", isFingerRight);
+                        //rightHandColider.enabled = !isFingerRight;
+                        //handRightAnimator.SetBool("FingerOn", isFingerRight);
                         //StartCoroutine(TresholdRight());
                     }                    
                 }
@@ -137,7 +137,7 @@ public class SCR_LocomotionController : NetworkBehaviour
                     {
                         isFingerRight = false;
                         rightHandColider.enabled = !isFingerRight;
-                        handRightAnimator.SetBool("FingerOn", isFingerRight);
+                        //handRightAnimator.SetBool("FingerOn", isFingerRight);
                     }
                 }
 
@@ -148,8 +148,8 @@ public class SCR_LocomotionController : NetworkBehaviour
                     if (handLeftAnimator == null)
                         handLeftAnimator = lefttHand.GetComponent<XRController>().modelParent.GetComponentInChildren<SCR_HandPresence>().spawnedHandModel.GetComponent<Animator>();
                     isFingerLeft = true;
-                    leftHandColider.enabled = !isFingerLeft;
-                    handLeftAnimator.SetBool("FingerOn", isFingerLeft);
+                    //leftHandColider.enabled = !isFingerLeft;
+                    //handLeftAnimator.SetBool("FingerOn", isFingerLeft);
                 }
             }
             else
@@ -157,8 +157,8 @@ public class SCR_LocomotionController : NetworkBehaviour
                 if (isFingerLeft)
                 {
                     isFingerLeft = false;
-                    leftHandColider.enabled = !isFingerLeft;
-                    handLeftAnimator.SetBool("FingerOn", isFingerLeft);
+                    //leftHandColider.enabled = !isFingerLeft;
+                    //handLeftAnimator.SetBool("FingerOn", isFingerLeft);
                 }
             }
         }

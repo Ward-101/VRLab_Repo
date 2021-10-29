@@ -5103,9 +5103,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_System: {fileID: 0}
   m_TurnAmount: 45
-  m_DebounceTime: 0.2
+  m_DebounceTime: 0.4
   m_EnableTurnLeftRight: 1
-  m_EnableTurnAround: 1
+  m_EnableTurnAround: 0
   m_TurnUsage: 0
   m_Controllers:
   - {fileID: 2454303858747051769}
