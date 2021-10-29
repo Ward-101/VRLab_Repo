@@ -57,14 +57,13 @@ public class SCR_LocomotionController : NetworkBehaviour
         tableManagment.tableFollow = tablefolow;
         if (!isLocalPlayer)
             tableManagment.enabled = false;
-       /* else
+        else if(isServer)
         {
-            for (int i = 0; i < startSpawn.Length; i++)
+           /* for (int i = 0; i < startSpawn.Length; i++)
             {
                  _spawn = Instantiate(startSpawn[i], startSpawn[i].transform.position, Quaternion.identity);
-                CmdSpawnObject();
-            }
-        }*/
+            }*/
+        }
         
     }
     private void Update()
@@ -173,6 +172,7 @@ public class SCR_LocomotionController : NetworkBehaviour
     [Command]
     private void CmdSpawntetro()
     {
+       
         foreach (var item in objectToSpawn)
         {
             NetworkServer.Spawn(item);
@@ -183,10 +183,22 @@ public class SCR_LocomotionController : NetworkBehaviour
     {
         NetworkServer.Spawn(gameObjectToSpawn);
     }*/
-    [Command]
-    public void CmdSpawnObject( )
+
+    public  void SpawnObecjt(GameObject authority, Transform trnas)
     {
-        NetworkServer.Spawn(_spawn);
+        if (isLocalPlayer)
+        {
+        CmdSpawnObject(authority, trnas);
+        }
+    }
+    [Command]
+    private void CmdSpawnObject(GameObject authority, Transform trnas )
+    {
+        for (int i = 0; i < startSpawn.Length; i++)
+        {
+            _spawn = Instantiate(startSpawn[i], startSpawn[i].transform.position + trnas.position, Quaternion.identity);
+            NetworkServer.Spawn(_spawn, authority);
+        }
     }
     IEnumerator TresholdRight()
     {
