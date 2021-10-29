@@ -269,8 +269,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 109434732395284505}
-  m_LocalRotation: {x: 0.76502967, y: -0.5406603, z: 0.16959205, w: -0.30603018}
-  m_LocalPosition: {x: -0.017749771, y: 0.049014878, z: -0.07170377}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 109434732395451465}
@@ -334,8 +334,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 109434732395284509}
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -0.001, y: 0.001, z: -0.035}
+  m_LocalRotation: {x: -0.663558, y: 0.025800236, z: 0.07386197, w: 0.7440226}
+  m_LocalPosition: {x: -0.03, y: 0.035, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 109434732395451515}
@@ -343,7 +343,7 @@ Transform:
   - {fileID: 1170111374560944134}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+  m_LocalEulerAnglesHint: {x: -82.4, y: -26.8, z: 34.9}
 --- !u!95 &109434732388006827
 Animator:
   serializedVersion: 3
@@ -1010,8 +1010,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1170111374560944134}
-  - component: {fileID: 2868938118164623698}
-  - component: {fileID: 6850778090797058260}
   - component: {fileID: 5453737563883365485}
   - component: {fileID: 4992812275317168133}
   m_Layer: 0
@@ -1028,62 +1026,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2747118466491741706}
-  m_LocalRotation: {x: -0, y: -0, z: -1, w: 0}
-  m_LocalPosition: {x: -0, y: 0.04, z: 0.093}
-  m_LocalScale: {x: 0.0195705, y: 0.015370999, z: 0.16155}
+  m_LocalRotation: {x: -0.019723164, y: -0.28314564, z: -0.9587767, w: 0.013671476}
+  m_LocalPosition: {x: -0.0085, y: -0.0996, z: -0.098}
+  m_LocalScale: {x: 0.017, y: 0.015370999, z: 0.06}
   m_Children: []
   m_Father: {fileID: 109434732395451517}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &2868938118164623698
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2747118466491741706}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &6850778090797058260
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2747118466491741706}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: -32.921, y: 2.053, z: -178.973}
 --- !u!65 &5453737563883365485
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1091,12 +1040,12 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2747118466491741706}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: a955a1987edb4f447881b97892cd5cd4, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1.0000005, y: 1.0000005, z: 1}
-  m_Center: {x: 2.3283075e-10, y: -2.3283075e-10, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &4992812275317168133
 Rigidbody:
   m_ObjectHideFlags: 0
