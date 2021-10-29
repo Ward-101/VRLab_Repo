@@ -3,20 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
 using Mirror;
-public class SCR_HandPresence : MonoBehaviour
+public class SCR_HandPresence : NetworkBehaviour
 {
     public bool showController = false;
     public InputDeviceCharacteristics controllerCharacteristics;
     public List<GameObject> controllerPrefabs;
     public GameObject handModelPrefab;
 
+    public SCR_LocomotionController parent;
     public GameObject spawnedHandModel;
     private InputDevice targetDevice;
     private GameObject spawnedController;
     private Animator handAnimator;
 
-    private void Start()
+    private IEnumerator Start()
     {
+        parent = GetComponentInParent<SCR_LocomotionController>();
+        if (!parent.isLocalPlayer)
+            this.enabled = false;
+        yield return new WaitUntil(() => NetworkClient.ready);
+        yield return new WaitForSeconds(0.5f);
         TryInitialize();
     }
 
@@ -37,7 +43,7 @@ public class SCR_HandPresence : MonoBehaviour
                     spawnedController.SetActive(true);
                 }
             }
-            else
+            else if(parent.isLocalPlayer)
             {
                 /*if (spawnedController.activeSelf)
                 {
@@ -77,7 +83,6 @@ public class SCR_HandPresence : MonoBehaviour
             }
 */
             spawnedHandModel = Instantiate(handModelPrefab, this.transform);
-            NetworkServer.Spawn(spawnedHandModel);
             handAnimator = spawnedHandModel.GetComponent<Animator>();
         }
         if (targetDevice.TryGetFeatureValue(CommonUsages.gripButton, out bool triggerValue) && triggerValue)

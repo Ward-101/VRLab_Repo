@@ -365,9 +365,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3190816086012054185}
-  - component: {fileID: 3604808079509546046}
-  - component: {fileID: 5912104811815557165}
   - component: {fileID: 881218826321623306}
+  - component: {fileID: -4870904896323593649}
+  - component: {fileID: 6063283363298747888}
   m_Layer: 9
   m_Name: Table
   m_TagString: Untagged
@@ -400,7 +400,41 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3604808079509546046
+--- !u!114 &881218826321623306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3190816086012054188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3596f8dd48e34f54aa22d3f53a25df7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tetro1:
+  - {fileID: 3384409884228276742}
+  - {fileID: 5676245397729561730}
+  - {fileID: 7618608304665116745}
+  - {fileID: 2932222569768047445}
+  - {fileID: 8739140791374279471}
+  - {fileID: 5287022877959089207}
+  tetro2:
+  - {fileID: 7917408903638612529}
+  - {fileID: 3174638094641284039}
+  - {fileID: 4629739432050290022}
+  - {fileID: 8001764406620034910}
+  - {fileID: 4028811737589149438}
+  - {fileID: 7711677048246883173}
+  flockMen:
+  - {fileID: 724440746958616734}
+  - {fileID: 4899561535547748387}
+  - {fileID: 6833957113423279242}
+  - {fileID: 1541189116827016446}
+  - {fileID: 4520443314529100936}
+  tableFollow: {fileID: 0}
+  _transform: {fileID: 3190816086012054185}
+--- !u!114 &-4870904896323593649
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -417,7 +451,7 @@ MonoBehaviour:
   visible: 0
   m_AssetId: 18a78ee7a1f52934ca51e2426bdae5bc
   hasSpawned: 0
---- !u!114 &5912104811815557165
+--- !u!114 &6063283363298747888
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -446,42 +480,6 @@ MonoBehaviour:
   showGizmos: 0
   showOverlay: 0
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
---- !u!114 &881218826321623306
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3190816086012054188}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3596f8dd48e34f54aa22d3f53a25df7c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  tetro1:
-  - {fileID: 3384409884228276742}
-  - {fileID: 5676245397729561730}
-  - {fileID: 7618608304665116745}
-  - {fileID: 2932222569768047445}
-  - {fileID: 8739140791374279471}
-  - {fileID: 5287022877959089207}
-  tetro2:
-  - {fileID: 7917408903638612529}
-  - {fileID: 3174638094641284039}
-  - {fileID: 4629739432050290022}
-  - {fileID: 8001764406620034910}
-  - {fileID: 4028811737589149438}
-  - {fileID: 7711677048246883173}
-  flockMen:
-  - {fileID: 724440746958616734}
-  - {fileID: 4899561535547748387}
-  - {fileID: 6833957113423279242}
-  - {fileID: 1541189116827016446}
-  - {fileID: 4520443314529100936}
-  tableFollow: {fileID: 0}
-  _transform: {fileID: 3190816086012054185}
 --- !u!1 &3190816086300890026
 GameObject:
   m_ObjectHideFlags: 0

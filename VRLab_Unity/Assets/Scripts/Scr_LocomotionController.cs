@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using Mirror;
+using UnityEngine.InputSystem;
 public class SCR_LocomotionController : NetworkBehaviour
 {
     public XRController teleportRay;
@@ -42,16 +43,29 @@ public class SCR_LocomotionController : NetworkBehaviour
     private bool isPressTable;
     private bool spawnOnce;
     private TableManagment tableManagment;
+    private GameObject[] objectToSpawn;
+
+    public GameObject[] startSpawn;
+    public GameObject _spawn;
     private void Start()
     {
         tableTransform = GameObject.FindGameObjectWithTag("Table").transform;
        
-            GameObject _table = Instantiate(table, transform);
+       GameObject _table = Instantiate(table, transform);
         tableManagment = _table.GetComponent<TableManagment>();
 
         tableManagment.tableFollow = tablefolow;
         if (!isLocalPlayer)
             tableManagment.enabled = false;
+       /* else
+        {
+            for (int i = 0; i < startSpawn.Length; i++)
+            {
+                 _spawn = Instantiate(startSpawn[i], startSpawn[i].transform.position, Quaternion.identity);
+                CmdSpawnObject();
+            }
+        }*/
+        
     }
     private void Update()
     {
@@ -69,10 +83,11 @@ public class SCR_LocomotionController : NetworkBehaviour
         if (canMove)
         {
             movementMidle =  Vector3.Lerp(lefttHand.transform.localPosition, rightHand.transform.localPosition, 0.5f);
-            deltaLeft = Vector3.SignedAngle(new Vector3( movementMidle.magnitude,0,0), new Vector3(initMidle.magnitude, 0, 0), Vector3.up);
+            deltaLeft = Vector3.SignedAngle(movementMidle,initMidle, Vector3.up);
             transform.RotateAround(tableTransform.position, Vector3.up, deltaLeft*anglePower);
             transform.position += Vector3.up * (movementMidle.y - initMidle.y)*ySpeed;
-            transform.position += Vector3.forward * (movementMidle.z - initMidle.z)*zSpeed;
+
+           // transform.position += Vector3.forward * (movementMidle.z - initMidle.z)*zSpeed;
             initMidle = movementMidle;
         }
 
@@ -90,8 +105,9 @@ public class SCR_LocomotionController : NetworkBehaviour
         {
             if (!spawnOnce)
             {
-                var objectToSpawn=  tableManagment.ActiavetTetro();
-                CmdSpawntetro(objectToSpawn);
+                objectToSpawn = new GameObject[3];
+                objectToSpawn  =  tableManagment.ActiavetTetro();
+                CmdSpawntetro();
                 spawnOnce = true;
             }
         }
@@ -155,12 +171,22 @@ public class SCR_LocomotionController : NetworkBehaviour
 
     }
     [Command]
-    private void CmdSpawntetro(GameObject[] objectToSpawn)
+    private void CmdSpawntetro()
     {
         foreach (var item in objectToSpawn)
         {
             NetworkServer.Spawn(item);
         }
+    }
+   /* [Command]
+    public void CmdSpawnObject(GameObject gameObjectToSpawn)
+    {
+        NetworkServer.Spawn(gameObjectToSpawn);
+    }*/
+    [Command]
+    public void CmdSpawnObject( )
+    {
+        NetworkServer.Spawn(_spawn);
     }
     IEnumerator TresholdRight()
     {

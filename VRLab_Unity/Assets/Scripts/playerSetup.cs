@@ -4,7 +4,7 @@ using System.Collections;
 public class playerSetup : NetworkBehaviour
 {
     [SerializeField]
-    Behaviour[] componentToDisable;
+    Behaviour[] componentToDisable = new Behaviour[3];
     private IEnumerator Start()
     {
         yield return new WaitForEndOfFrame();

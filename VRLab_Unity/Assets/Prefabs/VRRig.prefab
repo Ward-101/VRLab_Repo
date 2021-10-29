@@ -5032,6 +5032,8 @@ GameObject:
   - component: {fileID: 2454303859103493004}
   - component: {fileID: 2454303859103493007}
   - component: {fileID: 5464667163365733864}
+  - component: {fileID: 1981579939065598733}
+  - component: {fileID: 2128804602400534935}
   m_Layer: 7
   m_Name: VRRig
   m_TagString: Untagged
@@ -5165,14 +5167,26 @@ MonoBehaviour:
   leftHandColider: {fileID: 2454303859425488986}
   rightHandColider: {fileID: 2454303858747051771}
   activationThreshold: 0.1
-  anglePower: 2
+  anglePower: 5
   ySpeed: -2
-  zSpeed: 0
+  zSpeed: 2
   handLeftAnimator: {fileID: 0}
   handRightAnimator: {fileID: 0}
   table: {fileID: 3190816086012054188, guid: 18a78ee7a1f52934ca51e2426bdae5bc, type: 3}
   tablefolow: {fileID: 2454303859133500167}
   deltaLeft: 0
+  startSpawn:
+  - {fileID: 8770891991455562896, guid: 9aff203357fd26643a6758ddc7a3d9ee, type: 3}
+  - {fileID: 5445636726121325221, guid: d613f0a48216ccf47a12125488c15b19, type: 3}
+  - {fileID: 2008748945337704401, guid: 8683c3712e7684947b8f25dcf5a8c99a, type: 3}
+  - {fileID: 2597597624541039970, guid: 138e526d788407344ae64062b567c017, type: 3}
+  - {fileID: 8753157536242627824, guid: 31bb8ed5f3e2b064e91fa1ab50d3c8a8, type: 3}
+  - {fileID: 4992728878156886718, guid: c83542d03bcc2984bb63a9cf3dba44d3, type: 3}
+  - {fileID: 3665908361742360784, guid: e93c27d950de00749b985a23ab6cf87b, type: 3}
+  - {fileID: 9038261228071189209, guid: aa366cdb4ccdf6647a60efa65eb7ca60, type: 3}
+  - {fileID: 6220441127714000630, guid: a4b0de0fa51abc040b54014ec10ff352, type: 3}
+  - {fileID: 1052726133087765403, guid: 40abd3b804822df40906676113892e3a, type: 3}
+  _spawn: {fileID: 0}
 --- !u!143 &2454303859103493015
 CharacterController:
   m_ObjectHideFlags: 0
@@ -5222,8 +5236,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  clientAuthority: 0
-  sendInterval: 0.05
+  clientAuthority: 1
+  sendInterval: 0
   syncPosition: 1
   syncRotation: 1
   syncScale: 0
@@ -5269,6 +5283,67 @@ MonoBehaviour:
   - {fileID: 2454303859338189820}
   - {fileID: 2454303859133500218}
   - {fileID: 2454303859133500165}
+  - {fileID: 5464667163365733864}
+--- !u!114 &1981579939065598733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2454303859103493014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 734b48bea0b204338958ee3d885e11f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  clientAuthority: 1
+  sendInterval: 0.01
+  syncPosition: 1
+  syncRotation: 1
+  syncScale: 0
+  interpolatePosition: 1
+  interpolateRotation: 1
+  interpolateScale: 1
+  bufferTimeMultiplier: 3
+  bufferSizeLimit: 64
+  catchupThreshold: 6
+  catchupMultiplier: 0.1
+  showGizmos: 0
+  showOverlay: 0
+  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+  target: {fileID: 2454303858747051770}
+--- !u!114 &2128804602400534935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2454303859103493014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 734b48bea0b204338958ee3d885e11f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  clientAuthority: 1
+  sendInterval: 0.01
+  syncPosition: 1
+  syncRotation: 1
+  syncScale: 0
+  interpolatePosition: 1
+  interpolateRotation: 1
+  interpolateScale: 1
+  bufferTimeMultiplier: 3
+  bufferSizeLimit: 64
+  catchupThreshold: 6
+  catchupMultiplier: 0.1
+  showGizmos: 0
+  showOverlay: 0
+  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+  target: {fileID: 2454303859425489061}
 --- !u!1 &2454303859133500166
 GameObject:
   m_ObjectHideFlags: 0

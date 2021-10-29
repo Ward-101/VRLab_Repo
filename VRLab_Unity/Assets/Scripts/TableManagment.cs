@@ -1,8 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Mirror;
-public class TableManagment : NetworkBehaviour
+public class TableManagment : MonoBehaviour
 {
 
     public GameObject[] tetro1;
@@ -32,9 +31,9 @@ public class TableManagment : NetworkBehaviour
         objectToSpawn[0] = tetro1[gameObjectActived];
         objectToSpawn[1] = tetro2[gameObjectActived];
         objectToSpawn[2] = flockMen[gameObjectActived];
-        return objectToSpawn;
         if (gameObjectActived < flockMen.Length - 1)
             gameObjectActived++;
+        return objectToSpawn;
     }
 
 
