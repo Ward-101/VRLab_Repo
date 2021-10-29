@@ -1,17 +1,20 @@
 fileFormatVersion: 2
-guid: 5c4936c4a46284b4da097f2a0ffe0705
+guid: b882ea88989da884da1da35c97e397a1
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable:
   - first:
-      74: -3290165064817112992
-    second: Armature|hands:hands_geomAction
+      74: 2264077025236624520
+    second: Armature.001|Armature.001Action
   - first:
-      74: -6790684547340668989
-    second: Armature|l_point
+      74: -5784005261616917065
+    second: Armature.001|Armature.001Action.001
   - first:
-      74: 2759215972393258001
-    second: Armature|r_point
+      74: 1222546143190305936
+    second: Armature.001|hands:hands_geomAction
+  - first:
+      74: 7211358485317207747
+    second: Armature.001|r_point
   externalObjects: {}
   materials:
     materialImportMode: 2
