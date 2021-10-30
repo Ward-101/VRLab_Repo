@@ -16,7 +16,10 @@ public class SCR_XROffsetGrabbable : XRGrabInteractable
         public Vector3 OriginalPosition;
         public Quaternion OriginalRotation;
     }
-
+    private bool grabedOnce;
+    public Transform follow;
+    public Rigidbody rgb;
+    private Vector3 posStart;
     Dictionary<XRBaseInteractor, SavedTransform> m_SavedTransforms = new Dictionary<XRBaseInteractor, SavedTransform>();
 
     Rigidbody m_Rb;
@@ -28,7 +31,22 @@ public class SCR_XROffsetGrabbable : XRGrabInteractable
         //the base class already grab it but don't expose it so have to grab it again
         m_Rb = GetComponent<Rigidbody>();
     }
-
+    private void Start()
+    {
+        if (follow)
+        {
+            posStart = follow.position - transform.position;
+            rgb.constraints = RigidbodyConstraints.FreezeAll;
+        }
+    }
+    private void Update()
+    {
+        if(!grabedOnce && follow != null)
+        {
+            transform.position = follow.position - posStart;
+            transform.rotation = follow.rotation;
+        }
+    }
     protected override void OnSelectEntering(XRBaseInteractor interactor)
     {
         if (interactor is XRDirectInteractor)
@@ -49,7 +67,16 @@ public class SCR_XROffsetGrabbable : XRGrabInteractable
 
         base.OnSelectEntering(interactor);
     }
+    protected override void Grab()
+    {
+        if (!grabedOnce)
+        {
+            grabedOnce = true;
+            rgb.constraints = RigidbodyConstraints.None;
 
+        }
+        base.Grab();
+    }
     protected override void OnSelectExiting(XRBaseInteractor interactor)
     {
         if (interactor is XRDirectInteractor)

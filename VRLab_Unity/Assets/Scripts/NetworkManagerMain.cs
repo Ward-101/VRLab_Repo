@@ -10,6 +10,15 @@ public class NetworkManagerMain : NetworkManager
 
     public GameObject[] startSpawn;
     private SCR_LocomotionController playerController;
+
+    public static NetworkManagerMain instance;
+    private void Awake()
+    {
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(gameObject);
+    }
     /// <summary>
     /// Called on the server when a client adds a new player with ClientScene.AddPlayer.
     /// <para>The default implementation for this function creates a new player object from the playerPrefab.</para>
@@ -30,5 +39,10 @@ public class NetworkManagerMain : NetworkManager
     {
         yield return new WaitForSeconds(2f);
         playerController.SpawnObecjt(player, player.transform);
+    }
+  
+    public void SpawnPieces(GameObject piecesToSpaw, GameObject authority, Transform parent )
+    {
+        playerController.SpawnPiece(piecesToSpaw, authority,parent);
     }
 }
