@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class SCR_WinZone : MonoBehaviour
+using Mirror;
+using TMPro;
+public class SCR_WinZone : NetworkBehaviour
 {
     public float countdown;
     private Material baseMat;
@@ -15,7 +16,17 @@ public class SCR_WinZone : MonoBehaviour
     private List<Collider> colliderList = new List<Collider>();
 
     private MeshRenderer meshRenderer;
- 
+    public NetworkManagerMain wintext;
+    public int thisNumber;
+   private IEnumerator Start()
+    {
+        meshRenderer = this.GetComponent<MeshRenderer>();
+        baseMat = meshRenderer.material;
+        yield return new WaitForSeconds(10f);
+        if (thisNumber == 0)
+            wintext.Win(0);
+
+    }
     private void OnTriggerStay(Collider other)
     {
         if (!colliderList.Contains(other) && other.tag == "Piece")
@@ -40,6 +51,7 @@ public class SCR_WinZone : MonoBehaviour
                 StartCountdown();
             }
         }
+
     }
 
     private void OnTriggerExit(Collider other)
@@ -55,19 +67,17 @@ public class SCR_WinZone : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        meshRenderer = this.GetComponent<MeshRenderer>();
-        baseMat = meshRenderer.material;
-    }
 
     private void Update()
     {
         if (canCount && AudioSettings.dspTime - startTime >= countdown)
         {
             meshRenderer.material = winMat;
+                wintext.Win(thisNumber);
+                                  
         }
     }
+    
     private void StartCountdown()
     {
         startTime = (float)AudioSettings.dspTime;

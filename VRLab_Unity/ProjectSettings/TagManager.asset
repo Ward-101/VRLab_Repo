@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Piece
   - Table
+  - Table2
+  - WinText
   layers:
   - Default
   - TransparentFX

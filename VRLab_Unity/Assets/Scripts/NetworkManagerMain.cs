@@ -8,6 +8,7 @@ public class NetworkManagerMain : NetworkManager
     public Transform firstPlayer;
     public Transform secondPlayerTransform;
 
+
     public GameObject[] startSpawn;
     private SCR_LocomotionController playerController;
 
@@ -40,11 +41,18 @@ public class NetworkManagerMain : NetworkManager
         yield return new WaitForSeconds(2f);
         playerController.SpawnObecjt(player, player.transform);
 
-        player.GetComponent<SCR_LocomotionController>().net = conn;
     }
   
     public void SpawnPieces(GameObject piecesToSpaw, GameObject authority, Transform parent )
     {
         playerController.SpawnPiece(piecesToSpaw, authority,parent);
+    }
+
+    public void Win(int playerId)
+    {
+        if (playerId == 0)
+            playerController.CmdEndTurn1();
+        else
+            playerController.CmdEndTurn();
     }
 }

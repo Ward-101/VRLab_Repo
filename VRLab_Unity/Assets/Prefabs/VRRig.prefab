@@ -5219,6 +5219,7 @@ MonoBehaviour:
   table: {fileID: 3190816086012054188, guid: 18a78ee7a1f52934ca51e2426bdae5bc, type: 3}
   tablefolow: {fileID: 2454303859133500167}
   deltaLeft: 0
+  tableTransform: {fileID: 0}
   objectToSpawn:
   - {fileID: 2184389482391285466, guid: 727d157d2d14aea4182d01257794d698, type: 3}
   - {fileID: 4112947209830185109, guid: 2b8e4c0c295f5864d86358a342e85dd3, type: 3}

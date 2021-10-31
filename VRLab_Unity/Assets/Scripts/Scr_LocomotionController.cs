@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using Mirror;
-using UnityEngine.InputSystem;
+using TMPro;
 public class SCR_LocomotionController : NetworkBehaviour
 {
     public XRController teleportRay;
@@ -39,7 +39,7 @@ public class SCR_LocomotionController : NetworkBehaviour
     private Vector3 movementMidle;
     public float deltaLeft;
     private float deltaRight;
-    private Transform tableTransform;
+    public Transform tableTransform;
     private bool isPressTable;
     private bool spawnOnce;
     private TableManagment tableManagment;
@@ -53,8 +53,12 @@ public class SCR_LocomotionController : NetworkBehaviour
     public NetworkConnection net;
     private IEnumerator Start()
     {
-        tableTransform = GameObject.FindGameObjectWithTag("Table").transform;
-       
+        if(!isServer)
+            tableTransform = GameObject.FindGameObjectWithTag("Table2").transform;
+        else
+            tableTransform = GameObject.FindGameObjectWithTag("Table").transform;
+
+
         GameObject _table = Instantiate(table,new Vector3( tablefolow.forward.x*-1.5f +transform.position.x,0.7f+transform.position.y,tablefolow.forward.z*-1.5f+transform.position.z),Quaternion.identity);
         _table.transform.SetParent(transform);
         tableManagment = _table.GetComponent<TableManagment>();
@@ -219,85 +223,25 @@ public class SCR_LocomotionController : NetworkBehaviour
             CmdSpawnObject(authority, trnas);
         }
     }
+    private int indexStart=0;
     [Command]
     private void CmdSpawnObject(GameObject authority, Transform trnas )
     {
         for (int i = 0; i < startSpawn.Length; i++)
         {
-            _spawn = Instantiate(startSpawn[i],  startSpawn[i].transform.position, Quaternion.identity);
+            if(indexStart ==0)
+            _spawn = Instantiate(startSpawn[i],  startSpawn[i].transform.position + tableTransform.position, Quaternion.identity);
+            else
+            {
+                GameObject _table = GameObject.FindGameObjectWithTag("Table2");
+                _spawn = Instantiate(startSpawn[i], startSpawn[i].transform.position + _table.transform.position, Quaternion.identity);
+
+            }
             NetworkServer.Spawn(_spawn, authority);
         }
-/*        for (int x = 0; x < 5; x++)
-        {
-            for (int i = 0; i < objectToSpawn.Length; i++)
-            {
-                _spawn = Instantiate(objectToSpawn[i], tableManagment.transform.position + objectToSpawn[i].transform.position, Quaternion.identity);
-                _spawn.SetActive(false);
-               *//* RcpSetOff();
-                if (!isServer)
-                    RcpAddPlayer(authority);
-                authority.GetComponent<SCR_LocomotionController>().objectSpawned.Add(_spawn);*//*
-
-                NetworkServer.Spawn(_spawn, authority);
-            }
-        }*/
-      //  StartCoroutine(debugSpaw());
-    }
-    [ClientRpc]
-    void RcpSetOff()
-    {
-        _spawn.SetActive(false);
+            indexStart++;
     }
 
-    IEnumerator debugSpaw()
-    {
-        yield return new WaitForSeconds(5f);
-        for (int i = 0; i < objectToSpawn.Length; i++)
-        {
-            _spawn = Instantiate(objectToSpawn[i], tableManagment.transform.position + objectToSpawn[i].transform.position, Quaternion.identity);
-            NetworkServer.Spawn(_spawn, gameObject);
-        }
-/*        ActivateObject();
-        if (!isLocalPlayer)
-            yield return null;
-        if (isServer)
-        {
-            RpcActivateObject();
-        }
-        else
-        {
-            CmdActivate();
-        }*/
-    }
-    [ClientRpc]
-    void RcpAddPlayer(GameObject authority)
-    {
-        authority.GetComponent<SCR_LocomotionController>().objectSpawned.Add(_spawn);
-
-    }
-
-    [Command]
-    private void CmdActivate()
-    {
-        ActivateObject();
-        RpcActivateObject();
-    }
-    private void ActivateObject()
-    {
-        for (int i = index; i < objectToSpawn.Length+index; i++)
-        {
-            objectSpawned[i].SetActive(true);
-        }
-        index += objectToSpawn.Length -1;
-
-    }
-    [ClientRpc]
-    void RpcActivateObject()
-    {
-        if (isLocalPlayer)
-            return;
-        ActivateObject();
-    }
 
     public void SpawnPiece(GameObject peiceToSpawn, GameObject authority, Transform parent)
     {
@@ -315,21 +259,33 @@ public class SCR_LocomotionController : NetworkBehaviour
             _spawn.GetComponent<SCR_XROffsetGrabbable>().follow = tableManagment.transform;
             NetworkServer.Spawn(_spawn, authority);
     }
-    IEnumerator TresholdRight()
-    {
-        cantpressRight = true;
-        yield return new WaitUntil(() => !isPressRightTrigger);
-        cantpressRight = false;
 
+    [Command(requiresAuthority = false)]
+    public void CmdEndTurn()
+    {
+        RcpWin();
     }
-    IEnumerator TresholdLeft()
+    [Command(requiresAuthority = false)]
+    public void CmdEndTurn1()
     {
-        cantPressLeft = true;
-        yield return new WaitUntil(()=>!ispressLeftTrigger);
-        cantPressLeft = false;
-
+        RcpWin1();
     }
 
+    [ClientRpc]
+    void RcpWin()
+    {
+        GameObject _text = GameObject.FindGameObjectWithTag("WinText");
+        TextMeshProUGUI wintext = _text.GetComponent<TextMeshProUGUI>();
+        wintext.text = "Player 2 won";
+    }
+    [ClientRpc]
+    void RcpWin1()
+    {
+        GameObject _text = GameObject.FindGameObjectWithTag("WinText");
+        TextMeshProUGUI wintext = _text.GetComponent<TextMeshProUGUI>();
+        //player win
+        wintext.text = "Player 1 won";
+    }
     /*public bool CheckIfActivated(XRController controller)
     {
         InputHelpers.IsPressed(controller.inputDevice, teleportActivationButton, out bool isActivated, activationThreshold);
