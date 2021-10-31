@@ -23,7 +23,10 @@ public class SCR_HandPresence : NetworkBehaviour
             this.enabled = false;
         yield return new WaitUntil(() => NetworkClient.ready);
         yield return new WaitForSeconds(0.5f);
-        TryInitialize();
+        if (!targetDevice.isValid)
+        {
+            TryInitialize();
+        }
     }
 
 

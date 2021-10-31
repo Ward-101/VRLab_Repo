@@ -33,12 +33,14 @@ public class NetworkManagerMain : NetworkManager
         numberOfPlayer++;
         // player.GetComponent<ControllerKeyBoard>().playerId = numberOfPlayer;
         NetworkServer.AddPlayerForConnection(conn, player);
-        StartCoroutine(WaitToSpawn(player));
+        StartCoroutine(WaitToSpawn(conn,player));
     }
-    IEnumerator WaitToSpawn(GameObject player)
+    IEnumerator WaitToSpawn(NetworkConnection conn,GameObject player)
     {
         yield return new WaitForSeconds(2f);
         playerController.SpawnObecjt(player, player.transform);
+
+        player.GetComponent<SCR_LocomotionController>().net = conn;
     }
   
     public void SpawnPieces(GameObject piecesToSpaw, GameObject authority, Transform parent )

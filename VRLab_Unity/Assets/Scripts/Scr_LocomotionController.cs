@@ -50,18 +50,21 @@ public class SCR_LocomotionController : NetworkBehaviour
     public GameObject _spawn;
     private GameObject prefabToSpawn;
     private int index;
-    private void Start()
+    public NetworkConnection net;
+    private IEnumerator Start()
     {
         tableTransform = GameObject.FindGameObjectWithTag("Table").transform;
        
-        GameObject _table = Instantiate(table, tablefolow.position +table.transform.position,Quaternion.identity);
+        GameObject _table = Instantiate(table,new Vector3( tablefolow.forward.x*-1.5f +transform.position.x,0.7f+transform.position.y,tablefolow.forward.z*-1.5f+transform.position.z),Quaternion.identity);
         _table.transform.SetParent(transform);
         tableManagment = _table.GetComponent<TableManagment>();
-
         tableManagment.tableFollow = tablefolow;
         if (!isLocalPlayer)
             tableManagment.enabled = false;
+
+        yield return new WaitForSeconds(3f);
     }
+    
     private void Update()
     {
         /*if (teleportRay)
@@ -102,13 +105,8 @@ public class SCR_LocomotionController : NetworkBehaviour
             {
                 /*objectToSpawn = new GameObject[3];
                  objectToSpawn  =  tableManagment.ActiavetTetro();*/
-                for (int i = 0; i < objectToSpawn.Length; i++)
-                {
-                    _spawn = Instantiate(objectToSpawn[i], tableManagment.transform.position + objectToSpawn[i].transform.position, Quaternion.identity);
-                    _spawn.SetActive(false);
-
-                    NetworkServer.Spawn(_spawn, gameObject);
-                }
+                        CmdSpawnThisObject();
+               
                 /*ActivateObject();
                 if (!isLocalPlayer)
                     return;
@@ -181,6 +179,23 @@ public class SCR_LocomotionController : NetworkBehaviour
             spawnOnce = false;
         }
 
+    }
+    [Command]
+    private void CmdSpawnThisObject()
+    {
+        for (int i = 0; i < objectToSpawn.Length; i++)
+        {
+            _spawn = Instantiate(objectToSpawn[i], tableManagment.transform.position + objectToSpawn[i].transform.position, Quaternion.identity);
+            _spawn.GetComponent<SCR_XROffsetGrabbable>().follow = tableManagment._transform;
+            NetworkServer.Spawn(_spawn, connectionToClient);
+        }
+        RpcSyncUnits(_spawn);
+    }
+
+    [ClientRpc]
+    void RpcSyncUnits(GameObject x)
+    {
+        _spawn = x;
     }
     [Command]
     private void CmdSpawntetro()

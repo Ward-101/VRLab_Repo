@@ -33,7 +33,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7703080922650646032}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.03399998, y: 0.16899991, z: 0.34500003}
+  m_LocalPosition: {x: 0.03399998, y: 0.106, z: 0.225}
   m_LocalScale: {x: 0.026299292, y: 0.026299292, z: 0.026299292}
   m_Children:
   - {fileID: 7703080922650644941}
@@ -275,6 +275,7 @@ MonoBehaviour:
   m_AttachPointCompatibilityMode: 0
   follow: {fileID: 0}
   rgb: {fileID: 7703080922650645191}
+  followRotation: {fileID: 0}
 --- !u!114 &7703080922650647792
 MonoBehaviour:
   m_ObjectHideFlags: 0

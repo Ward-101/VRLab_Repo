@@ -20,9 +20,15 @@ public class SCR_XROffsetGrabbable : XRGrabInteractable
     public Transform follow;
     public Rigidbody rgb;
     private Vector3 posStart;
+    public Transform followRotation;
     Dictionary<XRBaseInteractor, SavedTransform> m_SavedTransforms = new Dictionary<XRBaseInteractor, SavedTransform>();
 
     Rigidbody m_Rb;
+    private Vector3 startParentPosition;
+    private Quaternion startParentRotationQ;
+    private Vector3 startChildPosition;
+    private Quaternion startChildRotationQ;
+    private Matrix4x4 parentMatrix;
 
     protected override void Awake()
     {
@@ -35,16 +41,33 @@ public class SCR_XROffsetGrabbable : XRGrabInteractable
     {
         if (follow)
         {
-            posStart = follow.position - transform.position;
             rgb.constraints = RigidbodyConstraints.FreezeAll;
+
+            startParentPosition = follow.position;
+            startParentRotationQ = follow.rotation;
+
+            startChildPosition = transform.position;
+            startChildRotationQ = transform.rotation;
+            //founded by testing
+            startChildPosition = DivideVectors(Quaternion.Inverse(follow.rotation) * (startChildPosition - startParentPosition), follow.lossyScale);
         }
+    }
+    Vector3 DivideVectors(Vector3 num, Vector3 den)
+    {
+
+        return new Vector3(num.x / den.x, num.y / den.y, num.z / den.z);
+
     }
     private void Update()
     {
         if(!grabedOnce && follow != null)
         {
-            transform.position = follow.position - posStart;
-            transform.rotation = follow.rotation;
+           //simulate child effect
+            parentMatrix = Matrix4x4.TRS(follow.position, follow.rotation, follow.lossyScale);
+
+            transform.position = parentMatrix.MultiplyPoint3x4(startChildPosition);
+
+            transform.rotation = (follow.rotation * Quaternion.Inverse(startParentRotationQ)) * startChildRotationQ;
         }
     }
     protected override void OnSelectEntering(XRBaseInteractor interactor)
@@ -67,6 +90,7 @@ public class SCR_XROffsetGrabbable : XRGrabInteractable
 
         base.OnSelectEntering(interactor);
     }
+  
     protected override void Grab()
     {
         if (!grabedOnce)
