@@ -23,8 +23,8 @@ public class SCR_WinZone : NetworkBehaviour
         meshRenderer = this.GetComponent<MeshRenderer>();
         baseMat = meshRenderer.material;
         yield return new WaitForSeconds(10f);
-        if (thisNumber == 0)
-            wintext.Win(0);
+/*        if (thisNumber == 0)
+            wintext.Win(0);*/
 
     }
     private void OnTriggerStay(Collider other)
