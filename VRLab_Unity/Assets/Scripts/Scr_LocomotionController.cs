@@ -10,19 +10,20 @@ public class SCR_LocomotionController : NetworkBehaviour
     public XRController rightHand;
     public XRController lefttHand;
     public InputHelpers.Button teleportActivationButton;
-    public InputHelpers.Button fingerButton;
-    public InputHelpers.Button gripBtton;
+    private InputHelpers.Button fingerButton;
+    private InputHelpers.Button gripBtton;
     public InputHelpers.Button spawnButton;
     public SphereCollider leftHandColider;
     public SphereCollider rightHandColider;
     public float activationThreshold = 0.1f;
     [Header("Movement")]
-    public float anglePower=5;
+    public CharacterStats playerStats;
+    private float xPower = 5;
     /// <summary>
     /// If negative will invers the vertical axe
     /// </summary>
-    public float ySpeed;
-    public float zSpeed;
+    private float yPower;
+    private float zPower;
 
     public bool EnableTeleportRay { get; set; } = true;
 
@@ -58,6 +59,12 @@ public class SCR_LocomotionController : NetworkBehaviour
         else
             tableTransform = GameObject.FindGameObjectWithTag("Table").transform;
 
+        fingerButton = playerStats.fingerButton;
+        gripBtton = playerStats.gripBtton;
+        xPower = playerStats.xPower;
+        yPower = playerStats.yPower;
+        zPower = playerStats.zPower;
+
 
         GameObject _table = Instantiate(table,new Vector3( tablefolow.forward.x*-1.5f +transform.position.x,0.7f+transform.position.y,tablefolow.forward.z*-1.5f+transform.position.z),Quaternion.identity);
         _table.transform.SetParent(transform);
@@ -86,8 +93,8 @@ public class SCR_LocomotionController : NetworkBehaviour
         {
             movementMidle =  Vector3.Lerp(lefttHand.transform.localPosition, rightHand.transform.localPosition, 0.5f);
             deltaLeft = Vector3.SignedAngle(movementMidle,initMidle, Vector3.up);
-            transform.RotateAround(tableTransform.position, Vector3.up, deltaLeft*anglePower);
-            transform.position += Vector3.up * (movementMidle.y - initMidle.y)*ySpeed;
+            transform.RotateAround(tableTransform.position, Vector3.up, deltaLeft*xPower);
+            transform.position += Vector3.up * (movementMidle.y - initMidle.y)*yPower;
 
            // transform.position += Vector3.forward * (movementMidle.z - initMidle.z)*zSpeed;
             initMidle = movementMidle;
