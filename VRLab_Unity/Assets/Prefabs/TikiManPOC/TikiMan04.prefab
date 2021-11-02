@@ -141,7 +141,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4113523858262143990}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Colliders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -157,7 +157,7 @@ Transform:
   m_GameObject: {fileID: 3621076891304932126}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 4, z: 1}
   m_Children:
   - {fileID: 3350323331853020139}
   - {fileID: 3351698466084966494}
@@ -182,9 +182,9 @@ GameObject:
   - component: {fileID: 181892490026886387}
   - component: {fileID: 4160189663341785297}
   - component: {fileID: 4195731534724917905}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TikiMan04
-  m_TagString: Untagged
+  m_TagString: Piece
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -197,8 +197,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5792657378826015307}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.802766, y: -1.1297, z: 0.33310598}
-  m_LocalScale: {x: 2, y: 4, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4113523858262143990}
   m_Father: {fileID: 0}
@@ -231,7 +231,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 57654017a4283514c81edf8ec81a1953, type: 2}
+  - {fileID: 2100000, guid: a2d1a1ecc7a39834caa48bbab4f799ab, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
