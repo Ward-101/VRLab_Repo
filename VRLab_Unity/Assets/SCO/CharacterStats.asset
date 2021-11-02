@@ -17,3 +17,4 @@ MonoBehaviour:
   zPower: 2
   fingerButton: 2
   gripBtton: 3
+  spawnButton: 8

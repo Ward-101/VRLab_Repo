@@ -12,4 +12,5 @@ public class CharacterStats : ScriptableObject
     public float zPower = 2;
     public InputHelpers.Button fingerButton = InputHelpers.Button.Trigger;
     public InputHelpers.Button gripBtton= InputHelpers.Button.Grip;
+    public InputHelpers.Button spawnButton= InputHelpers.Button.SecondaryButton;
 }

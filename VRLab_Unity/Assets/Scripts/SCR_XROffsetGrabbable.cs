@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
+
 /// <summary>
 /// Small modification of the classic XRGrabInteractable that will keep the position and rotation offset between the
 /// grabbed object and the controller instead of snapping the object to the controller. Better for UX and the illusion

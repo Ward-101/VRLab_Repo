@@ -26,6 +26,7 @@ public class CharacterStatsEditor : Editor
 
         statsTarget.gripBtton = (InputHelpers.Button) EditorGUILayout.EnumPopup("Grip Button", statsTarget.gripBtton);
         statsTarget.fingerButton = (InputHelpers.Button)EditorGUILayout.EnumPopup("Activate Finger button", statsTarget.fingerButton);
+        statsTarget.spawnButton = (InputHelpers.Button)EditorGUILayout.EnumPopup(" Spawn button", statsTarget.spawnButton);
         EditorUtility.SetDirty(statsTarget);
         Repaint();
         serializedObject.ApplyModifiedProperties();
