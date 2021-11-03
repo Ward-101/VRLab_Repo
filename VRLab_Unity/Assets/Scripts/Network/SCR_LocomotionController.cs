@@ -74,7 +74,7 @@ namespace Network
             zPower = playerStats.zPower;
 
 
-            GameObject _table = Instantiate(table, new Vector3(tablefolow.forward.x * -1.5f + table.transform.position.x, 0.7f + table.transform.position.y, tablefolow.forward.z * -1.5f + table.transform.position.z), Quaternion.identity);
+            GameObject _table = Instantiate(table, new Vector3(tablefolow.forward.x  +0.7f, 0.9f + transform.position.y,  transform.position.z+0.7f), Quaternion.identity);
             _table.transform.SetParent(transform);
             tableManagment = _table.GetComponent<TableManagment>();
             tableManagment.tableFollow = tablefolow;
