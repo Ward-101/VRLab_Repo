@@ -14,6 +14,7 @@ namespace Local
         private InputHelpers.Button fingerButton;
         private InputHelpers.Button gripBtton;
         private InputHelpers.Button spawnButton;
+        public InputHelpers.Button spawnButton2;
         public InputHelpers.Button timerButton;
 
         public TimerManager timer;
@@ -45,7 +46,7 @@ namespace Local
         private float deltaRight;
         public Transform tableTransform;
         public Transform spawnTransform;
-        private bool isPressTable;
+        private bool isPressTable, isPressTable2;
         private bool spawnOnce;
         private TableManagment tableManagment;
         public GameObject[] objectToSpawn;
@@ -83,6 +84,7 @@ namespace Local
             InputHelpers.IsPressed(lefttHand.inputDevice, gripBtton, out ispressLeftGrip);
             InputHelpers.IsPressed(rightHand.inputDevice, gripBtton, out isPressRightGrip);
             InputHelpers.IsPressed(rightHand.inputDevice, spawnButton, out isPressTable);
+            InputHelpers.IsPressed(rightHand.inputDevice, spawnButton2, out isPressTable2);
 
             if (isTimerPress )
             {
@@ -117,7 +119,7 @@ namespace Local
 
 
             }
-            else if (isPressTable)
+            else if (isPressTable||isPressTable2)
             {
                 if (!spawnOnce)
                 {
