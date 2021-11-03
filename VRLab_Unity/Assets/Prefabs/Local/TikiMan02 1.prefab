@@ -143,7 +143,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 57654017a4283514c81edf8ec81a1953, type: 2}
+  - {fileID: 2100000, guid: a2d1a1ecc7a39834caa48bbab4f799ab, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -193,7 +193,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b1be3f679ea93f458af66b6675a9043, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hoverMat: {fileID: 2100000, guid: 9004dd21b7c44a84aabd08e6648e2862, type: 2}
+  hoverMat: {fileID: 2100000, guid: 0fcbb763755f9c343a3dba9c9ddf82be, type: 2}
 --- !u!114 &1687006304420532545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -367,6 +367,7 @@ MonoBehaviour:
   m_AttachPointCompatibilityMode: 0
   follow: {fileID: 0}
   followRotation: {fileID: 0}
+  pieceStatNetwork: {fileID: 0}
 --- !u!114 &7581690539097892114
 MonoBehaviour:
   m_ObjectHideFlags: 0
