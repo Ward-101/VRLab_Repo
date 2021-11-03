@@ -94,8 +94,8 @@ GameObject:
   - component: {fileID: 2190475474489069138}
   - component: {fileID: 3011212995371942391}
   - component: {fileID: 1021487027322860861}
-  - component: {fileID: 8446102642055719532}
   - component: {fileID: 8381156062328352488}
+  - component: {fileID: 8446102642055719532}
   - component: {fileID: 5758592032822302762}
   - component: {fileID: 7824828984110695854}
   - component: {fileID: -5966664501243070646}
@@ -172,19 +172,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &8446102642055719532
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1526141355985736936}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b1be3f679ea93f458af66b6675a9043, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hoverMat: {fileID: 2100000, guid: 9004dd21b7c44a84aabd08e6648e2862, type: 2}
 --- !u!54 &8381156062328352488
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -201,6 +188,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
+--- !u!114 &8446102642055719532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1526141355985736936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b1be3f679ea93f458af66b6675a9043, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverMat: {fileID: 2100000, guid: 9004dd21b7c44a84aabd08e6648e2862, type: 2}
 --- !u!114 &5758592032822302762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -411,7 +411,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   target: {fileID: 8381156062328352488}
-  clientAuthority: 0
+  clientAuthority: 1
   syncVelocity: 1
   clearVelocity: 0
   velocitySensitivity: 0.1
@@ -432,7 +432,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  clientAuthority: 0
+  clientAuthority: 1
   sendInterval: 0.05
   syncPosition: 1
   syncRotation: 1

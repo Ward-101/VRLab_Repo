@@ -201,9 +201,10 @@ namespace Network
             {
                 _spawn = Instantiate(objectToSpawn[i], tableManagment.transform.position + objectToSpawn[i].transform.position, Quaternion.identity);
                 _spawn.GetComponent<SCR_XROffsetGrabbable>().follow = tableManagment._transform;
+               
                 NetworkServer.Spawn(_spawn, connectionToClient);
+                RpcSyncUnits(_spawn);
             }
-            RpcSyncUnits(_spawn);
         }
 
         [ClientRpc]

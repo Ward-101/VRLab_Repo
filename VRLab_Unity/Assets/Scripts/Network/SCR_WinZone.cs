@@ -18,13 +18,13 @@ public class SCR_WinZone : NetworkBehaviour
     private List<Collider> colliderList = new List<Collider>();
 
     private MeshRenderer meshRenderer;
-    public  MainNetorkManager wintext;
+    public  NetworkManagerMain wintext;
     public int thisNumber;
    private IEnumerator Start()
     {
         meshRenderer = this.GetComponent<MeshRenderer>();
         baseMat = meshRenderer.material;
-            wintext = MainNetorkManager.instance;
+            wintext = NetworkManagerMain.instance;
         yield return new WaitForSeconds(10f);
 /*        if (thisNumber == 0)
             wintext.Win(0);*/
@@ -32,7 +32,7 @@ public class SCR_WinZone : NetworkBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
-        if (!colliderList.Contains(other) && other.tag == "Piece")
+        if (!colliderList.Contains(other) && other.attachedRigidbody.tag == "Piece")
         {
             if (other.TryGetComponent(out SCR_PieceState pieceState))
             {
@@ -59,7 +59,7 @@ public class SCR_WinZone : NetworkBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Piece" && colliderList.Contains(other))
+        if (other.attachedRigidbody.tag == "Piece" && colliderList.Contains(other))
         {
             colliderList.Remove(other);
 
