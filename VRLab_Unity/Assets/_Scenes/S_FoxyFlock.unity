@@ -852,6 +852,79 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1001 &412840851
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: c10ad5be678f9c848b170c740b691023, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c10ad5be678f9c848b170c740b691023, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c10ad5be678f9c848b170c740b691023, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c10ad5be678f9c848b170c740b691023, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c10ad5be678f9c848b170c740b691023, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.88
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c10ad5be678f9c848b170c740b691023, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.31
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c10ad5be678f9c848b170c740b691023, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4.18
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c10ad5be678f9c848b170c740b691023, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.70132834
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c10ad5be678f9c848b170c740b691023, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.70132834
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c10ad5be678f9c848b170c740b691023, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.090214185
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c10ad5be678f9c848b170c740b691023, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.090214185
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c10ad5be678f9c848b170c740b691023, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c10ad5be678f9c848b170c740b691023, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c10ad5be678f9c848b170c740b691023, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -14.66
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: c10ad5be678f9c848b170c740b691023, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a2d1a1ecc7a39834caa48bbab4f799ab, type: 2}
+    - target: {fileID: 919132149155446097, guid: c10ad5be678f9c848b170c740b691023, type: 3}
+      propertyPath: m_Name
+      value: MS_FlockMan_01
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c10ad5be678f9c848b170c740b691023, type: 3}
 --- !u!43 &522035619
 Mesh:
   m_ObjectHideFlags: 0
