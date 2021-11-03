@@ -6,11 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_Scenes/S_FoxyFlockSolo.unity
-    guid: 37907c178f3a3314bb719626dec31fd2
-  - enabled: 0
     path: Assets/_Scenes/S_FoxyFlock.unity
     guid: 32c0c2c32d16f3d4bb55c2cbc9744a64
+  - enabled: 1
+    path: Assets/_Scenes/S_FoxyFlockSolo.unity
+    guid: 37907c178f3a3314bb719626dec31fd2
   - enabled: 0
     path: Assets/_Scenes/OfflineScene.unity
     guid: 78ab933f08877a24d9aa42e0cab5f653

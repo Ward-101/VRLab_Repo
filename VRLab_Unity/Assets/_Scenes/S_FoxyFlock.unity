@@ -6489,6 +6489,7 @@ MonoBehaviour:
   - {fileID: 2538941185142290124, guid: aec4982fc12577045b03cddf75500012, type: 3}
   - {fileID: 5792657378826015307, guid: 59261dee8433c2243b63694bc0475d4d, type: 3}
   - {fileID: 1526141355985736936, guid: c38e9d3375d3915419abac39737ae64b, type: 3}
+  - {fileID: 1004231586693155902, guid: cbf8fa0478e64b246a1b8751ae8bb4cc, type: 3}
   firstPlayer: {fileID: 1836609214}
   secondPlayerTransform: {fileID: 43362716}
   startSpawn: []
