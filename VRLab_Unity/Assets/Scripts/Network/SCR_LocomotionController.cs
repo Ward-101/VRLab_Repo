@@ -15,6 +15,7 @@ namespace Network
         private InputHelpers.Button fingerButton;
         private InputHelpers.Button gripBtton;
         private InputHelpers.Button spawnButton;
+        public InputHelpers.Button spawnButton2;
         public InputHelpers.Button timerButton;
 
         public SphereCollider leftHandColider;
@@ -45,7 +46,7 @@ namespace Network
         public float deltaLeft;
         private float deltaRight;
         public Transform tableTransform;
-        private bool isPressTable;
+        private bool isPressTable, isPressTable2;
         private bool spawnOnce;
         private TableManagment tableManagment;
         public GameObject[] objectToSpawn;
@@ -96,6 +97,7 @@ namespace Network
             InputHelpers.IsPressed(rightHand.inputDevice, gripBtton, out isPressRightGrip);
             InputHelpers.IsPressed(rightHand.inputDevice, timerButton, out isTimerPress);
             InputHelpers.IsPressed(rightHand.inputDevice, spawnButton, out isPressTable);
+            InputHelpers.IsPressed(rightHand.inputDevice, spawnButton2, out isPressTable2);
 
             if (isTimerPress)
             {
@@ -125,7 +127,7 @@ namespace Network
 
 
             }
-            else if (isPressTable)
+            else if (isPressTable ||isPressTable2)
             {
                 if (!spawnOnce)
                 {
@@ -133,6 +135,7 @@ namespace Network
                      objectToSpawn  =  tableManagment.ActiavetTetro();*/
                     CmdSpawnThisObject();
                     spawnOnce = true;
+                    StartCoroutine(WaiToSpawn());
                 }
             }
             else if (canMove)
@@ -188,11 +191,16 @@ namespace Network
                 }
             }
 
-            if (!isPressTable && spawnOnce)
+            /*if (!isPressTable && spawnOnce)
             {
                 spawnOnce = false;
-            }
+            }*/
 
+        }
+        IEnumerator WaiToSpawn()
+        {
+            yield return new WaitForSeconds(5f);
+            spawnOnce = false;
         }
         [Command]
         private void CmdSpawnThisObject()
