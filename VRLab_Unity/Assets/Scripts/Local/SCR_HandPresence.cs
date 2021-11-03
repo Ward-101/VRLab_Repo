@@ -22,7 +22,7 @@ public class SCR_HandPresence : MonoBehaviour
     private void  Start()
     {
         parent = GetComponentInParent<SCR_LocomotionController>();
-            indexCollider = transform.GetChild(0).GetComponentInChildren<Collider>();
+          
         if (!targetDevice.isValid)
         {
             TryInitialize();
@@ -32,6 +32,10 @@ public class SCR_HandPresence : MonoBehaviour
 
     private void Update()
     {
+            if (!indexCollider && transform.childCount>0)
+            {
+                indexCollider = transform.GetChild(0).GetComponentInChildren<Collider>();
+            }
         if (!targetDevice.isValid)
         {
             TryInitialize();
@@ -48,6 +52,7 @@ public class SCR_HandPresence : MonoBehaviour
             }
             else 
             {
+                    if(indexCollider)
                 UpdateHandAnimation();
             }
         }
