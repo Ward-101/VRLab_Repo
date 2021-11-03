@@ -32,7 +32,7 @@ namespace Local
         }
         private void OnTriggerStay(Collider other)
         {
-            if (!colliderList.Contains(other) && other.tag == "Piece")
+            if (!colliderList.Contains(other) && other.attachedRigidbody.tag == "Piece")
             {
                 if (other.TryGetComponent(out SCR_PieceState pieceState))
                 {
@@ -59,7 +59,7 @@ namespace Local
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.tag == "Piece" && colliderList.Contains(other))
+            if (other.attachedRigidbody.tag == "Piece" && colliderList.Contains(other))
             {
                 colliderList.Remove(other);
 
