@@ -181,7 +181,7 @@ namespace Local
 
             if (!isPressTable && spawnOnce)
             {
-                if(tablefolow.childCount ==0)
+                if(spawnTransform.childCount ==0)
                     spawnOnce = false;
             }
 

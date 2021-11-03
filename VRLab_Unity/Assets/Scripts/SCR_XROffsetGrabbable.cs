@@ -19,7 +19,6 @@ public class SCR_XROffsetGrabbable : XRGrabInteractable
     }
     private bool grabedOnce;
     public Transform follow;
-    public Rigidbody rgb;
     private Vector3 posStart;
     public Transform followRotation;
     Dictionary<XRBaseInteractor, SavedTransform> m_SavedTransforms = new Dictionary<XRBaseInteractor, SavedTransform>();
@@ -40,9 +39,11 @@ public class SCR_XROffsetGrabbable : XRGrabInteractable
     }
     private void Start()
     {
+        if (!m_Rb)
+            m_Rb = GetComponent<Rigidbody>();
         if (follow)
         {
-            rgb.constraints = RigidbodyConstraints.FreezeAll;
+            m_Rb.constraints = RigidbodyConstraints.FreezeAll;
 
             startParentPosition = follow.position;
             startParentRotationQ = follow.rotation;
@@ -97,7 +98,7 @@ public class SCR_XROffsetGrabbable : XRGrabInteractable
         if (!grabedOnce)
         {
             grabedOnce = true;
-            rgb.constraints = RigidbodyConstraints.None;
+            m_Rb.constraints = RigidbodyConstraints.None;
 
         }
         base.Grab();

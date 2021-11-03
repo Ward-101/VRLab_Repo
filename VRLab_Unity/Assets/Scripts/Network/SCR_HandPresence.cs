@@ -26,7 +26,6 @@ namespace Network
                 this.enabled = false;
             yield return new WaitUntil(() => NetworkClient.ready);
             yield return new WaitForSeconds(0.5f);
-            indexCollider = transform.GetChild(0).GetComponentInChildren<Collider>();
             if (!targetDevice.isValid)
             {
                 TryInitialize();
@@ -36,6 +35,10 @@ namespace Network
 
         private void Update()
         {
+            if (!indexCollider && transform.childCount > 0)
+            {
+                indexCollider = transform.GetChild(0).GetComponentInChildren<Collider>();
+            }
             if (!targetDevice.isValid)
             {
                 TryInitialize();
@@ -58,7 +61,8 @@ namespace Network
                         spawnedHandModel.SetActive(true);
                     }*/
 
-                    UpdateHandAnimation();
+                    if (indexCollider)
+                        UpdateHandAnimation();
                 }
             }
         }
