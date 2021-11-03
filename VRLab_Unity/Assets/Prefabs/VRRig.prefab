@@ -5917,7 +5917,11 @@ MonoBehaviour:
   deltaLeft: 0
   tableTransform: {fileID: 0}
   objectToSpawn:
-  - {fileID: 1004231586693155902, guid: cbf8fa0478e64b246a1b8751ae8bb4cc, type: 3}
+  - {fileID: 365375278161402617, guid: 4efd98c6dc4a30c44b5f4691db882130, type: 3}
+  - {fileID: 2025502959373642174, guid: 69f92d2311e6f0141967991a0ee7a9dd, type: 3}
+  - {fileID: 2538941185142290124, guid: aec4982fc12577045b03cddf75500012, type: 3}
+  - {fileID: 5792657378826015307, guid: 59261dee8433c2243b63694bc0475d4d, type: 3}
+  - {fileID: 1526141355985736936, guid: c38e9d3375d3915419abac39737ae64b, type: 3}
   objectSpawned: []
   startSpawn: []
   _spawn: {fileID: 0}

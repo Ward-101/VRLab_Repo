@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
-
+using Network;
 
 /// <summary>
 /// Small modification of the classic XRGrabInteractable that will keep the position and rotation offset between the
@@ -29,6 +29,7 @@ public class SCR_XROffsetGrabbable : XRGrabInteractable
     private Vector3 startChildPosition;
     private Quaternion startChildRotationQ;
     private Matrix4x4 parentMatrix;
+    public SCR_PieceState pieceStatNetwork;
 
     protected override void Awake()
     {
@@ -71,6 +72,16 @@ public class SCR_XROffsetGrabbable : XRGrabInteractable
 
             transform.rotation = (follow.rotation * Quaternion.Inverse(startParentRotationQ)) * startChildRotationQ;
         }
+
+        if (pieceStatNetwork && !grabedOnce)
+        {
+            grabedOnce = pieceStatNetwork.IsGrab;
+            if (grabedOnce)
+            {
+                m_Rb.constraints = RigidbodyConstraints.None;
+                Debug.LogError("Grabbed");
+            }
+        }
     }
     protected override void OnSelectEntering(XRBaseInteractor interactor)
     {
@@ -92,7 +103,6 @@ public class SCR_XROffsetGrabbable : XRGrabInteractable
 
         base.OnSelectEntering(interactor);
     }
-  
     protected override void Grab()
     {
         if (!grabedOnce)

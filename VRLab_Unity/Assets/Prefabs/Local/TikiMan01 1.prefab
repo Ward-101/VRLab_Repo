@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8760725855401037668}
   - component: {fileID: 3752478648282276789}
   - component: {fileID: 2420830935889630928}
-  - component: {fileID: 4918180998806690790}
+  - component: {fileID: 1869939505761947640}
   m_Layer: 6
   m_Name: TikiMan01 1
   m_TagString: Piece
@@ -192,8 +192,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 4918180998806690790}
-        m_TargetAssemblyTypeName: SCR_PieceState, Assembly-CSharp
+      - m_Target: {fileID: 1869939505761947640}
+        m_TargetAssemblyTypeName: Local.SCR_PieceState, Assembly-CSharp
         m_MethodName: set_IsGrab
         m_Mode: 6
         m_Arguments:
@@ -207,8 +207,8 @@ MonoBehaviour:
   m_SelectExited:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4918180998806690790}
-        m_TargetAssemblyTypeName: SCR_PieceState, Assembly-CSharp
+      - m_Target: {fileID: 1869939505761947640}
+        m_TargetAssemblyTypeName: Local.SCR_PieceState, Assembly-CSharp
         m_MethodName: set_IsGrab
         m_Mode: 6
         m_Arguments:
@@ -291,7 +291,7 @@ MonoBehaviour:
   m_AttachPointCompatibilityMode: 0
   follow: {fileID: 0}
   followRotation: {fileID: 0}
---- !u!114 &4918180998806690790
+--- !u!114 &1869939505761947640
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -300,7 +300,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 365375278161402617}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b96822ad2512404dbb426477d1865ca, type: 3}
+  m_Script: {fileID: 11500000, guid: 965c5f58050eaad43955f8b0595ecab0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &962413182973832967
