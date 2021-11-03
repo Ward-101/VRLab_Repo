@@ -17,6 +17,7 @@ namespace Mirror
     [HelpURL("https://mirror-networking.gitbook.io/docs/components/network-room-manager")]
     public class NetworkRoomManager : NetworkManager
     {
+
         public struct PendingPlayer
         {
             public NetworkConnection conn;

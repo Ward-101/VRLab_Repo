@@ -18,12 +18,13 @@ public class SCR_WinZone : NetworkBehaviour
     private List<Collider> colliderList = new List<Collider>();
 
     private MeshRenderer meshRenderer;
-    public NetworkManagerMain wintext;
+    public  MainNetorkManager wintext;
     public int thisNumber;
    private IEnumerator Start()
     {
         meshRenderer = this.GetComponent<MeshRenderer>();
         baseMat = meshRenderer.material;
+            wintext = MainNetorkManager.instance;
         yield return new WaitForSeconds(10f);
 /*        if (thisNumber == 0)
             wintext.Win(0);*/

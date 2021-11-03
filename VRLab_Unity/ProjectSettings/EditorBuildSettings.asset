@@ -11,6 +11,12 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/_Scenes/S_FoxyFlock.unity
     guid: 32c0c2c32d16f3d4bb55c2cbc9744a64
+  - enabled: 0
+    path: Assets/_Scenes/OfflineScene.unity
+    guid: 78ab933f08877a24d9aa42e0cab5f653
+  - enabled: 0
+    path: Assets/_Scenes/RoomScene.unity
+    guid: 390ffbfd460ae5d46beda648c7de5a9d
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: f640d00d7126ba3439928dd221304310, type: 2}
     Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: 9147a4e887b2a4b4c87b706f29d09cf7, type: 2}

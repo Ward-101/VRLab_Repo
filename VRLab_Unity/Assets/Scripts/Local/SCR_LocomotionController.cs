@@ -44,6 +44,7 @@ namespace Local
         public float deltaLeft;
         private float deltaRight;
         public Transform tableTransform;
+        public Transform spawnTransform;
         private bool isPressTable;
         private bool spawnOnce;
         private TableManagment tableManagment;
@@ -193,9 +194,8 @@ namespace Local
         {
             for (int i = 0; i < peiceToSpawn.Length; i++)
             {
-               
-                _spawn = Instantiate(peiceToSpawn[i], tableTransform);
-               _spawn.transform.SetParent( tablefolow);
+               _spawn = Instantiate(peiceToSpawn[i], spawnTransform);
+               _spawn.transform.SetParent(spawnTransform);
             }
         }
 

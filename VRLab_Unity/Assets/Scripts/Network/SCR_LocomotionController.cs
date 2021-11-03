@@ -15,6 +15,8 @@ namespace Network
         private InputHelpers.Button fingerButton;
         private InputHelpers.Button gripBtton;
         private InputHelpers.Button spawnButton;
+        public InputHelpers.Button timerButton;
+
         public SphereCollider leftHandColider;
         public SphereCollider rightHandColider;
         public float activationThreshold = 0.1f;
@@ -36,7 +38,7 @@ namespace Network
 
         private bool isFingerLeft, isFingerRight;
         private bool cantPressLeft, cantpressRight;
-        private bool ispressLeftTrigger, isPressRightTrigger, ispressLeftGrip, isPressRightGrip;
+        private bool ispressLeftTrigger, isPressRightTrigger, ispressLeftGrip, isPressRightGrip, isTimerPress;
         private bool canMove;
         private Vector3 initMidle;
         private Vector3 movementMidle;
@@ -54,6 +56,8 @@ namespace Network
         private GameObject prefabToSpawn;
         private int index;
         public NetworkConnection net;
+        public bool restart;
+
         private IEnumerator Start()
         {
             if (!isServer)
@@ -90,8 +94,16 @@ namespace Network
             InputHelpers.IsPressed(lefttHand.inputDevice, fingerButton, out ispressLeftTrigger);
             InputHelpers.IsPressed(lefttHand.inputDevice, gripBtton, out ispressLeftGrip);
             InputHelpers.IsPressed(rightHand.inputDevice, gripBtton, out isPressRightGrip);
+            InputHelpers.IsPressed(rightHand.inputDevice, timerButton, out isTimerPress);
             InputHelpers.IsPressed(rightHand.inputDevice, spawnButton, out isPressTable);
 
+            if (isTimerPress)
+            {
+                 if (restart)
+                {
+                    NetworkManagerMain.instance.Restart();
+                }
+            }
             if (canMove)
             {
                 movementMidle = Vector3.Lerp(lefttHand.transform.localPosition, rightHand.transform.localPosition, 0.5f);
@@ -198,6 +210,7 @@ namespace Network
         void RpcSyncUnits(GameObject x)
         {
             _spawn = x;
+            _spawn.GetComponent<SCR_XROffsetGrabbable>().follow = tableManagment._transform;
         }
         [Command]
         private void CmdSpawntetro()

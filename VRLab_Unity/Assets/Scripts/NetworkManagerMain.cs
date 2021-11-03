@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using Network;
 
-namespace Network
-{
-    public class NetworkManagerMain : NetworkManager
+
+     public class NetworkManagerMain : NetworkManager
     {
         int numberOfPlayer = 0;
         public Transform firstPlayer;
@@ -23,7 +23,7 @@ namespace Network
             if (instance == null)
                 instance = this;
             else
-                Destroy(gameObject);
+                Destroy(instance.gameObject);
         }
         /// <summary>
         /// Called on the server when a client adds a new player with ClientScene.AddPlayer.
@@ -60,6 +60,10 @@ namespace Network
             else
                 playerController.CmdEndTurn();
         }
+    public void Restart()
+    {
+
+    }
     }
 
-}
+

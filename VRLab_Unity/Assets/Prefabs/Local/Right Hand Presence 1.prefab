@@ -48,6 +48,6 @@ MonoBehaviour:
   controllerPrefabs:
   - {fileID: 8650572954932092347, guid: baaa970bdeece9e45ac1c0787a9a3e68, type: 3}
   - {fileID: 6994738649229337237, guid: 28fc2bc32271ed047a2a4bf10f78e98e, type: 3}
-  handModelPrefab: {fileID: 5686134208185362930, guid: 1fd3a7c43c8190f4d8c167ebde694364, type: 3}
+  handModelPrefab: {fileID: 5686134208185362930, guid: 58aab6d6e1bbbb94f9c0b45aed8ebc95, type: 3}
   parent: {fileID: 0}
   spawnedHandModel: {fileID: 0}
