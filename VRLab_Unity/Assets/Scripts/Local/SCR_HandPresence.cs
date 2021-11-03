@@ -12,6 +12,7 @@ public class SCR_HandPresence : MonoBehaviour
     public List<GameObject> controllerPrefabs;
     public GameObject handModelPrefab;
 
+        private Collider indexCollider;
     public SCR_LocomotionController parent;
     public GameObject spawnedHandModel;
     private InputDevice targetDevice;
@@ -21,6 +22,7 @@ public class SCR_HandPresence : MonoBehaviour
     private void  Start()
     {
         parent = GetComponentInParent<SCR_LocomotionController>();
+            indexCollider = transform.GetChild(0).GetComponentInChildren<Collider>();
         if (!targetDevice.isValid)
         {
             TryInitialize();
@@ -80,10 +82,19 @@ public class SCR_HandPresence : MonoBehaviour
         if (targetDevice.TryGetFeatureValue(CommonUsages.trigger, out float triggerValue) && triggerValue > 0.1f)
         {
             handAnimator.SetFloat("Trigger", triggerValue);
-        }
+                if (triggerValue > 0.5f)
+                {
+                    indexCollider.isTrigger = false;
+                }
+                else
+                {
+                    indexCollider.isTrigger = true;
+                }
+            }
         else
         {
             handAnimator.SetFloat("Trigger", 0);
+                indexCollider.isTrigger = true;
         }
 
         if (targetDevice.TryGetFeatureValue(CommonUsages.grip, out float gripValue) && gripValue > 0.1f)

@@ -6,117 +6,128 @@ using Mirror;
 
 namespace Network
 {
-public class SCR_HandPresence : NetworkBehaviour
-{
-    public bool showController = false;
-    public InputDeviceCharacteristics controllerCharacteristics;
-    public List<GameObject> controllerPrefabs;
-    public GameObject handModelPrefab;
-
-    public SCR_LocomotionController parent;
-    public GameObject spawnedHandModel;
-    private InputDevice targetDevice;
-    private GameObject spawnedController;
-    private Animator handAnimator;
-
-    private IEnumerator Start()
+    public class SCR_HandPresence : NetworkBehaviour
     {
-        parent = GetComponentInParent<SCR_LocomotionController>();
-        if (!parent.isLocalPlayer)
-            this.enabled = false;
-        yield return new WaitUntil(() => NetworkClient.ready);
-        yield return new WaitForSeconds(0.5f);
-        if (!targetDevice.isValid)
-        {
-            TryInitialize();
-        }
-    }
+        public bool showController = false;
+        public InputDeviceCharacteristics controllerCharacteristics;
+        public List<GameObject> controllerPrefabs;
+        public GameObject handModelPrefab;
 
-
-    private void Update()
-    {
-        if (!targetDevice.isValid)
+        public SCR_LocomotionController parent;
+        public GameObject spawnedHandModel;
+        private InputDevice targetDevice;
+        private GameObject spawnedController;
+        private Animator handAnimator;
+        private Collider indexCollider;
+        private IEnumerator Start()
         {
-            TryInitialize();
-        }
-        else
-        {
-            if (showController)
+            parent = GetComponentInParent<SCR_LocomotionController>();
+            if (!parent.isLocalPlayer)
+                this.enabled = false;
+            yield return new WaitUntil(() => NetworkClient.ready);
+            yield return new WaitForSeconds(0.5f);
+            indexCollider = transform.GetChild(0).GetComponentInChildren<Collider>();
+            if (!targetDevice.isValid)
             {
-                if (spawnedHandModel.activeSelf)
-                {
-                    spawnedHandModel.SetActive(false);
-                    spawnedController.SetActive(true);
-                }
-            }
-            else if(parent.isLocalPlayer)
-            {
-                /*if (spawnedController.activeSelf)
-                {
-                    spawnedController.SetActive(false);
-                    spawnedHandModel.SetActive(true);
-                }*/
-
-                UpdateHandAnimation();
+                TryInitialize();
             }
         }
-    }
 
-    private void TryInitialize()
-    {
-        List<InputDevice> devices = new List<InputDevice>();
 
-        InputDevices.GetDevicesWithCharacteristics(controllerCharacteristics, devices);
-
-        foreach (var item in devices)
+        private void Update()
         {
-            print(item.name + item.characteristics);
-        }
-
-        if (devices.Count > 0)
-        {
-            targetDevice = devices[0];
-            /*GameObject prefab = controllerPrefabs.Find(controller => controller.name == targetDevice.name);
-            if (prefab)
+            if (!targetDevice.isValid)
             {
-                spawnedController = Instantiate(prefab, this.transform);
+                TryInitialize();
             }
             else
             {
-                Debug.LogError("Did not find corresponding controller model");
-                spawnedController = Instantiate(controllerPrefabs[0], this.transform);
-                NetworkServer.Spawn(spawnedController);
+                if (showController)
+                {
+                    if (spawnedHandModel.activeSelf)
+                    {
+                        spawnedHandModel.SetActive(false);
+                        spawnedController.SetActive(true);
+                    }
+                }
+                else if (parent.isLocalPlayer)
+                {
+                    /*if (spawnedController.activeSelf)
+                    {
+                        spawnedController.SetActive(false);
+                        spawnedHandModel.SetActive(true);
+                    }*/
+
+                    UpdateHandAnimation();
+                }
             }
-*/
-            spawnedHandModel = Instantiate(handModelPrefab, this.transform);
-            handAnimator = spawnedHandModel.GetComponent<Animator>();
-        }
-        if (targetDevice.TryGetFeatureValue(CommonUsages.gripButton, out bool triggerValue) && triggerValue)
-        {
-            Debug.Log("yo");
-        }
-    }
-
-    private void UpdateHandAnimation()
-    {
-        if (targetDevice.TryGetFeatureValue(CommonUsages.trigger, out float triggerValue) && triggerValue > 0.1f)
-        {
-            handAnimator.SetFloat("Trigger", triggerValue);
-        }
-        else
-        {
-            handAnimator.SetFloat("Trigger", 0);
         }
 
-        if (targetDevice.TryGetFeatureValue(CommonUsages.grip, out float gripValue) && gripValue > 0.1f)
+        private void TryInitialize()
         {
-            handAnimator.SetFloat("Grip", gripValue);
+            List<InputDevice> devices = new List<InputDevice>();
+
+            InputDevices.GetDevicesWithCharacteristics(controllerCharacteristics, devices);
+
+            foreach (var item in devices)
+            {
+                print(item.name + item.characteristics);
+            }
+
+            if (devices.Count > 0)
+            {
+                targetDevice = devices[0];
+                /*GameObject prefab = controllerPrefabs.Find(controller => controller.name == targetDevice.name);
+                if (prefab)
+                {
+                    spawnedController = Instantiate(prefab, this.transform);
+                }
+                else
+                {
+                    Debug.LogError("Did not find corresponding controller model");
+                    spawnedController = Instantiate(controllerPrefabs[0], this.transform);
+                    NetworkServer.Spawn(spawnedController);
+                }
+    */
+                spawnedHandModel = Instantiate(handModelPrefab, this.transform);
+                handAnimator = spawnedHandModel.GetComponent<Animator>();
+            }
+            if (targetDevice.TryGetFeatureValue(CommonUsages.gripButton, out bool triggerValue) && triggerValue)
+            {
+                Debug.Log("yo");
+            }
         }
-        else
+
+        private void UpdateHandAnimation()
         {
-            handAnimator.SetFloat("Grip", 0);
+            if (targetDevice.TryGetFeatureValue(CommonUsages.trigger, out float triggerValue) && triggerValue > 0.1f)
+            {
+                handAnimator.SetFloat("Trigger", triggerValue);
+
+                if (triggerValue > 0.5f)
+                {
+                    indexCollider.isTrigger = false;
+                }
+                else
+                {
+                    indexCollider.isTrigger = true;
+                }
+            }
+            else
+            {
+                handAnimator.SetFloat("Trigger", 0);
+                indexCollider.isTrigger = true;
+            }
+
+            if (targetDevice.TryGetFeatureValue(CommonUsages.grip, out float gripValue) && gripValue > 0.1f)
+            {
+                handAnimator.SetFloat("Grip", gripValue);
+            }
+            else
+            {
+                handAnimator.SetFloat("Grip", 0);
+            }
         }
     }
-}
 
 }

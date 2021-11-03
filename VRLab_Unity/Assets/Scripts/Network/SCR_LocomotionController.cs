@@ -173,8 +173,8 @@ namespace Network
                         if (handLeftAnimator == null)
                             handLeftAnimator = lefttHand.GetComponent<XRController>().modelParent.GetComponentInChildren<SCR_HandPresence>().spawnedHandModel.GetComponent<Animator>();
                         isFingerLeft = true;
-                        leftHandColider.enabled = !isFingerLeft;
-                        handLeftAnimator.SetBool("FingerOn", isFingerLeft);
+                        //leftHandColider.enabled = !isFingerLeft;
+                        //handLeftAnimator.SetBool("FingerOn", isFingerLeft);
                     }
                 }
                 else
@@ -183,7 +183,7 @@ namespace Network
                     {
                         isFingerLeft = false;
                         leftHandColider.enabled = !isFingerLeft;
-                        handLeftAnimator.SetBool("FingerOn", isFingerLeft);
+                       // handLeftAnimator.SetBool("FingerOn", isFingerLeft);
                     }
                 }
             }
