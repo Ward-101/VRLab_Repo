@@ -5905,6 +5905,7 @@ MonoBehaviour:
   rightHand: {fileID: 2454303858747051769}
   lefttHand: {fileID: 2454303859425488984}
   teleportActivationButton: 0
+  spawnButton2: 14
   timerButton: 0
   leftHandColider: {fileID: 2454303859425488986}
   rightHandColider: {fileID: 2454303858747051771}
