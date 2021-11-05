@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91f635a890e671d47a2eb9c282d980d5, type: 3}
   m_Name: CharacterStats
   m_EditorClassIdentifier: 
-  xPower: 2
-  yPower: -2
-  zPower: 5
+  xPower: 0.5
+  yPower: -1.5
+  zPower: -1
   fingerButton: 2
   gripBtton: 3
   spawnButton: 12

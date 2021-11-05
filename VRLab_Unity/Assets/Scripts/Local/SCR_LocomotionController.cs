@@ -34,7 +34,6 @@ namespace Local
 
         public Animator handLeftAnimator;
         public Animator handRightAnimator;
-        public Transform tablefolow;
 
         private bool isFingerLeft, isFingerRight;
         private bool cantPressLeft, cantpressRight;
@@ -58,6 +57,18 @@ namespace Local
         private int index;
         public bool activateTimer;
         public bool restart;
+
+        [Header("PlayerStatsForMovement")]
+        public Transform vrHeadSett;
+        public float upOffset;
+        public Vector3 forwardOffset;
+        public Vector3 rotateOffset;
+        public Vector3 deltaPos;
+        public Vector3 tdeltaPos;
+        public Transform zClamp;
+        public Transform upClamp;
+        public Transform downClamp;
+
         private void Start()
         {
 
@@ -66,7 +77,7 @@ namespace Local
             spawnButton = playerStats.spawnButton;
             xPower = playerStats.xPower;
             yPower = playerStats.yPower;
-            zPower = playerStats.zPower;                      
+            zPower = playerStats.zPower;
 
         }
 
@@ -76,7 +87,6 @@ namespace Local
             {
                 teleportRay.gameObject.SetActive(EnableTeleportRay && CheckIfActivated(teleportRay));
             }*/
-            
 
             InputHelpers.IsPressed(rightHand.inputDevice, fingerButton, out isPressRightTrigger);
             InputHelpers.IsPressed(rightHand.inputDevice, timerButton, out isTimerPress);
@@ -86,7 +96,7 @@ namespace Local
             InputHelpers.IsPressed(rightHand.inputDevice, spawnButton, out isPressTable);
             InputHelpers.IsPressed(rightHand.inputDevice, spawnButton2, out isPressTable2);
 
-            if (isTimerPress )
+            if (isTimerPress)
             {
                 if (!activateTimer)
                 {
@@ -98,14 +108,9 @@ namespace Local
                     SceneManager.LoadScene(0);
                 }
             }
-                if (canMove)
+            if (canMove)
             {
-                movementMidle = Vector3.Lerp(lefttHand.transform.localPosition, rightHand.transform.localPosition, 0.5f);
-                deltaLeft = Vector3.SignedAngle(new Vector3( movementMidle.x,0,movementMidle.z),new Vector3( initMidle.x,0,initMidle.z), Vector3.up);
-                transform.RotateAround(tableTransform.position, Vector3.up, deltaLeft * xPower);
-                transform.position += Vector3.up * (movementMidle.y - initMidle.y) * yPower;
-
-                // transform.position += Vector3.forward * (movementMidle.z - initMidle.z)*zSpeed;
+                Movement();
                 initMidle = movementMidle;
             }
 
@@ -114,12 +119,12 @@ namespace Local
                 if (!canMove)
                 {
                     canMove = true;
-                    initMidle = Vector3.Lerp(lefttHand.transform.localPosition, rightHand.transform.localPosition, 0.5f);
+                    initMidle = Vector3.Lerp(lefttHand.transform.position, rightHand.transform.position, 0.5f);
                 }
 
 
             }
-            else if (isPressTable||isPressTable2)
+            else if (isPressTable || isPressTable2)
             {
                 if (!spawnOnce)
                 {
@@ -183,10 +188,85 @@ namespace Local
 
             if (!isPressTable && spawnOnce)
             {
-                if(spawnTransform.childCount ==0)
+                if (spawnTransform.childCount == 0)
                     spawnOnce = false;
             }
 
+        }
+
+        private void Movement()
+        {
+
+            movementMidle = Vector3.Lerp(lefttHand.transform.position, rightHand.transform.position, 0.5f);
+
+            //get delat pos 
+            deltaPos = new Vector3((movementMidle.x - initMidle.x), (movementMidle.y - initMidle.y), (movementMidle.z - initMidle.z));
+            //get delta on player forward referential
+            //neeed to find a better idea
+            // tdeltaPos = vrHeadSett.transform.right * deltaPos.x+ vrHeadSett.transform.up * deltaPos.y+ vrHeadSett.transform.forward * deltaPos.z;
+            //tdeltaPos = vrHeadSett.InverseTransformPoint(deltaPos);
+            // tdeltaPos = vrHeadSett.InverseTransformPoint(deltaPos);
+
+            //seems good, 
+            tdeltaPos = vrHeadSett.InverseTransformDirection(deltaPos);
+
+
+            //if the amplutde of the movemnt is mor forward then side
+            if (Mathf.Abs(tdeltaPos.x) < Mathf.Abs(tdeltaPos.z))
+            {
+                // if the movemnt is enough to move
+                if (forwardOffset.z < Mathf.Abs(tdeltaPos.z))
+                {
+                    Debug.Log("moveforward");
+                    //move the pos to the table
+                    transform.position += new Vector3(tableTransform.transform.position.x - vrHeadSett.transform.position.x, 0, tableTransform.transform.position.z - vrHeadSett.transform.position.z).normalized * tdeltaPos.z * zPower;
+                    // the movement is enough to move forward and/or move upward
+                    if (forwardOffset.y < Mathf.Abs(tdeltaPos.y))
+                    {
+                        transform.position += Vector3.up * (tdeltaPos.y) * yPower;
+                    }
+                }
+                
+                //else if can move up
+                else if (upOffset < Mathf.Abs(deltaPos.y))
+                {
+                    transform.position += Vector3.up * (tdeltaPos.y) * yPower;
+                }
+
+            }
+
+            else if (Mathf.Abs(tdeltaPos.x) > Mathf.Abs(tdeltaPos.z))
+            {
+                // if the movemnt is enough to rotate
+                if (rotateOffset.x < Mathf.Abs( tdeltaPos.x))
+                {
+                    Debug.Log("rotate");
+
+                    //move the pos to the table
+                    transform.RotateAround(tableTransform.position, Vector3.up, tdeltaPos.x *180* xPower);
+                    // the movement is enough to move forward and/or move upward
+                    if (rotateOffset.y < tdeltaPos.y)
+                    {
+                        transform.position += Vector3.up * (tdeltaPos.y) * yPower;
+                    }
+                }
+                //else if can move up
+                else if (upOffset < Mathf.Abs(tdeltaPos.y))
+                {
+                    transform.position += Vector3.up * (deltaPos.y) * yPower;
+                }
+            }
+            //in the weird case that the player move the same amount in x and in z
+            //if move enough in y axis
+            else
+            {
+                Debug.Log("moveup");
+                
+                if (upOffset < Mathf.Abs(tdeltaPos.y))
+                {
+                    transform.position += Vector3.up * tdeltaPos.y * yPower;
+                }
+            }
         }
 
 
@@ -196,8 +276,8 @@ namespace Local
         {
             for (int i = 0; i < peiceToSpawn.Length; i++)
             {
-               _spawn = Instantiate(peiceToSpawn[i], spawnTransform);
-               _spawn.transform.SetParent(spawnTransform);
+                _spawn = Instantiate(peiceToSpawn[i], spawnTransform);
+                _spawn.transform.SetParent(spawnTransform);
             }
         }
 

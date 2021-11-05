@@ -5914,7 +5914,7 @@ MonoBehaviour:
   handLeftAnimator: {fileID: 0}
   handRightAnimator: {fileID: 0}
   table: {fileID: 3190816086012054188, guid: 18a78ee7a1f52934ca51e2426bdae5bc, type: 3}
-  tablefolow: {fileID: 2454303859133500167}
+  vrHeadSett: {fileID: 0}
   deltaLeft: 0
   tableTransform: {fileID: 0}
   objectToSpawn:
@@ -5927,6 +5927,9 @@ MonoBehaviour:
   startSpawn: []
   _spawn: {fileID: 0}
   restart: 0
+  upOffset: 0
+  forwardOffset: {x: 0, y: 0, z: 0}
+  rotateOffset: {x: 0, y: 0, z: 0}
 --- !u!143 &2454303859103493015
 CharacterController:
   m_ObjectHideFlags: 0

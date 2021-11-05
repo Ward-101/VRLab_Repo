@@ -35,7 +35,7 @@ namespace Network
         public Animator handLeftAnimator;
         public Animator handRightAnimator;
         public GameObject table;
-        public Transform tablefolow;
+        public Transform vrHeadSett;
 
         private bool isFingerLeft, isFingerRight;
         private bool cantPressLeft, cantpressRight;
@@ -58,7 +58,9 @@ namespace Network
         private int index;
         public NetworkConnection net;
         public bool restart;
-
+        public float upOffset;
+        public Vector3 forwardOffset;
+        public Vector3 rotateOffset;
         private IEnumerator Start()
         {
             if (!isServer)
@@ -74,10 +76,10 @@ namespace Network
             zPower = playerStats.zPower;
 
 
-            GameObject _table = Instantiate(table, new Vector3(tablefolow.forward.x  +0.7f, 0.9f + transform.position.y,  transform.position.z+0.7f), Quaternion.identity);
+            GameObject _table = Instantiate(table, new Vector3(tableTransform.forward.x  +0.7f, 0.9f + transform.position.y,  transform.position.z+0.7f), Quaternion.identity);
             _table.transform.SetParent(transform);
             tableManagment = _table.GetComponent<TableManagment>();
-            tableManagment.tableFollow = tablefolow;
+            tableManagment.tableFollow = tableTransform;
             if (!isLocalPlayer)
                 tableManagment.enabled = false;
 
@@ -108,12 +110,8 @@ namespace Network
             }
             if (canMove)
             {
-                movementMidle = Vector3.Lerp(lefttHand.transform.localPosition, rightHand.transform.localPosition, 0.5f);
-                deltaLeft = Vector3.SignedAngle(new Vector3(movementMidle.x, 0, movementMidle.z), new Vector3(initMidle.x, 0, initMidle.z), Vector3.up);
-                transform.RotateAround(tableTransform.position, Vector3.up, deltaLeft * xPower);
-                transform.position += Vector3.up * (movementMidle.y - initMidle.y) * yPower;
 
-                // transform.position += Vector3.forward * (movementMidle.z - initMidle.z)*zSpeed;
+                Movement();
                 initMidle = movementMidle;
             }
 
@@ -196,6 +194,64 @@ namespace Network
                 spawnOnce = false;
             }*/
 
+        }
+
+        private void Movement()
+        {
+            movementMidle = Vector3.Lerp(lefttHand.transform.localPosition, rightHand.transform.localPosition, 0.5f);
+
+            //get delat pos on player forward referential
+            Vector3 deltaPos = new Vector3((movementMidle.x - initMidle.x) * vrHeadSett.forward.x, (movementMidle.y - initMidle.y) * vrHeadSett.forward.x, (movementMidle.z - initMidle.z) * vrHeadSett.forward.x);
+
+            //if the amplutde of the movemnt is mor forward then side
+            if (deltaPos.x < deltaPos.z)
+            {
+                // if the movemnt is enough to move
+                if (forwardOffset.z < deltaPos.z)
+                {
+                    //move the pos to the table
+                    transform.position += new Vector3(tableTransform.transform.position.x - transform.position.x, 0, tableTransform.transform.position.z - transform.position.z) * zPower;
+                    // the movement is enough to move forward and/or move upward
+                    if (forwardOffset.y < deltaPos.y)
+                    {
+                        transform.position += Vector3.up * (deltaPos.y) * yPower;
+                    }
+                }
+                //else if can move up
+                else if (upOffset < deltaPos.y)
+                {
+                    transform.position += Vector3.up * (deltaPos.y) * yPower;
+                }
+
+            }
+            else if (deltaPos.x < deltaPos.z)
+            {
+                // if the movemnt is enough to move
+                if (rotateOffset.z < deltaPos.z)
+                {
+                    //move the pos to the table
+                    transform.RotateAround(tableTransform.position, Vector3.up, deltaLeft * xPower);
+                    // the movement is enough to move forward and/or move upward
+                    if (rotateOffset.y < deltaPos.y)
+                    {
+                        transform.position += Vector3.up * (deltaPos.y) * yPower;
+                    }
+                }
+                //else if can move up
+                else if (upOffset < deltaPos.y)
+                {
+                    transform.position += Vector3.up * (deltaPos.y) * yPower;
+                }
+            }
+            //in the weird case that the player move the same amount in x and in z
+            else
+            {
+                //if move enough in y axis
+                if (upOffset < deltaPos.y)
+                {
+                    transform.position += Vector3.up * (deltaPos.y) * yPower;
+                }
+            }
         }
         IEnumerator WaiToSpawn()
         {
