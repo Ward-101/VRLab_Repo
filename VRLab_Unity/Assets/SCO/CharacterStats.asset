@@ -13,8 +13,13 @@ MonoBehaviour:
   m_Name: CharacterStats
   m_EditorClassIdentifier: 
   xPower: 0.5
+  RotateXOffset: 0.01
+  RotateYOffset: 0.01
   yPower: -1.5
+  upOffset: 0.01
   zPower: -1
+  forwardZOffset: 0.01
+  forwardYOffset: 0.02
   fingerButton: 2
   gripBtton: 3
   spawnButton: 12

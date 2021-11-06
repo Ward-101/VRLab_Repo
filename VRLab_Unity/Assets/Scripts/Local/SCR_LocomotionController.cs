@@ -60,25 +60,36 @@ namespace Local
 
         [Header("PlayerStatsForMovement")]
         public Transform vrHeadSett;
-        public float upOffset;
-        public Vector3 forwardOffset;
-        public Vector3 rotateOffset;
-        public Vector3 deltaPos;
-        public Vector3 tdeltaPos;
-        public Transform zClamp;
+        private float upOffset;
+        private Vector3 forwardOffset;
+        private Vector3 rotateOffset;
+        private Vector3 deltaPos;
+        public Transform zClampMax;
+        public Transform zClampMin;
         public Transform upClamp;
         public Transform downClamp;
-
+        public Renderer tableRenderer;
         private void Start()
         {
-
+            tableRenderer = tableTransform.GetComponentInChildren<Renderer>();
             fingerButton = playerStats.fingerButton;
             gripBtton = playerStats.gripBtton;
             spawnButton = playerStats.spawnButton;
             xPower = playerStats.xPower;
             yPower = playerStats.yPower;
             zPower = playerStats.zPower;
-
+            forwardOffset = new Vector3(0, playerStats.forwardYOffset, playerStats.forwardZOffset);
+            rotateOffset = new Vector3(playerStats.RotateXOffset, playerStats.RotateYOffset,0);
+            upOffset = playerStats.upOffset;
+        }
+        private void FixedUpdate()
+        {
+            
+            if (canMove)
+            {
+                Movement();
+                initMidle = movementMidle;
+            }
         }
 
         private void Update()
@@ -87,6 +98,7 @@ namespace Local
             {
                 teleportRay.gameObject.SetActive(EnableTeleportRay && CheckIfActivated(teleportRay));
             }*/
+           
 
             InputHelpers.IsPressed(rightHand.inputDevice, fingerButton, out isPressRightTrigger);
             InputHelpers.IsPressed(rightHand.inputDevice, timerButton, out isTimerPress);
@@ -108,18 +120,14 @@ namespace Local
                     SceneManager.LoadScene(0);
                 }
             }
-            if (canMove)
-            {
-                Movement();
-                initMidle = movementMidle;
-            }
+            
 
             if (ispressLeftGrip && ispressLeftTrigger && isPressRightGrip && isPressRightTrigger)
             {
                 if (!canMove)
                 {
                     canMove = true;
-                    initMidle = Vector3.Lerp(lefttHand.transform.position, rightHand.transform.position, 0.5f);
+                    initMidle = Vector3.Lerp(lefttHand.transform.localPosition, rightHand.transform.localPosition, 0.5f);
                 }
 
 
@@ -196,81 +204,108 @@ namespace Local
 
         private void Movement()
         {
-
-            movementMidle = Vector3.Lerp(lefttHand.transform.position, rightHand.transform.position, 0.5f);
+            //check if table is on screen
+            Vector3 pointOnScreen = vrHeadSett.GetComponent<Camera>().WorldToScreenPoint(tableRenderer.bounds.center);
+            if ((pointOnScreen.x < 0) || (pointOnScreen.x > Screen.width) ||
+                (pointOnScreen.y < 0) || (pointOnScreen.y > Screen.height))
+            {
+                return;
+            }
+            if (pointOnScreen.z < 0)
+            {
+                return;
+            }
+            movementMidle = Vector3.Lerp(lefttHand.transform.localPosition, rightHand.transform.localPosition, 0.5f);
 
             //get delat pos 
             deltaPos = new Vector3((movementMidle.x - initMidle.x), (movementMidle.y - initMidle.y), (movementMidle.z - initMidle.z));
             //get delta on player forward referential
             //neeed to find a better idea
-            // tdeltaPos = vrHeadSett.transform.right * deltaPos.x+ vrHeadSett.transform.up * deltaPos.y+ vrHeadSett.transform.forward * deltaPos.z;
+             //tdeltaPos = transform.transform.right * deltaPos.x+ transform.transform.up * deltaPos.y+ transform.transform.forward * deltaPos.z;
             //tdeltaPos = vrHeadSett.InverseTransformPoint(deltaPos);
-            // tdeltaPos = vrHeadSett.InverseTransformPoint(deltaPos);
+             //tdeltaPos = vrHeadSett.InverseTransformPoint(deltaPos);
 
             //seems good, 
-            tdeltaPos = vrHeadSett.InverseTransformDirection(deltaPos);
-
+           //tdeltaPos = transform.InverseTransformDirection(deltaPos);
+           
 
             //if the amplutde of the movemnt is mor forward then side
-            if (Mathf.Abs(tdeltaPos.x) < Mathf.Abs(tdeltaPos.z))
+            if (Mathf.Abs(deltaPos.x) < Mathf.Abs(deltaPos.z))
             {
+               
                 // if the movemnt is enough to move
-                if (forwardOffset.z < Mathf.Abs(tdeltaPos.z))
+                if (forwardOffset.z < Mathf.Abs(deltaPos.z) )
                 {
-                    Debug.Log("moveforward");
-                    //move the pos to the table
-                    transform.position += new Vector3(tableTransform.transform.position.x - vrHeadSett.transform.position.x, 0, tableTransform.transform.position.z - vrHeadSett.transform.position.z).normalized * tdeltaPos.z * zPower;
-                    // the movement is enough to move forward and/or move upward
-                    if (forwardOffset.y < Mathf.Abs(tdeltaPos.y))
+                    //if is to close and want to come closer, return
+                    if (Vector2.Distance(ToVector2XZ(vrHeadSett.position), ToVector2XZ(tableTransform.position)) < Vector2.Distance(ToVector2XZ(zClampMin.position), ToVector2XZ(tableTransform.position)) && deltaPos.z < 0)
                     {
-                        transform.position += Vector3.up * (tdeltaPos.y) * yPower;
+                        return;
                     }
+                    //if is to far and want to go farer (is that english ?)
+                    else if (Vector2.Distance(ToVector2XZ(vrHeadSett.position), ToVector2XZ(tableTransform.position)) > Vector2.Distance(ToVector2XZ(zClampMax.position), ToVector2XZ(tableTransform.position)) && deltaPos.z > 0)
+                        return;
+                    //move the pos to the table
+                    transform.position += new Vector3(tableTransform.position.x - vrHeadSett.transform.position.x, 0, tableTransform.position.z - vrHeadSett.transform.position.z).normalized * deltaPos.z * zPower;
+                    // the movement is enough to move forward and/or move upward
+                    MoveUp(forwardOffset);
                 }
-                
-                //else if can move up
-                else if (upOffset < Mathf.Abs(deltaPos.y))
+                 //else if can move up
+                else
                 {
-                    transform.position += Vector3.up * (tdeltaPos.y) * yPower;
+                    MoveUp(upOffset);
+
                 }
 
             }
-
-            else if (Mathf.Abs(tdeltaPos.x) > Mathf.Abs(tdeltaPos.z))
+            else if (Mathf.Abs(deltaPos.x) > Mathf.Abs(deltaPos.z))
             {
                 // if the movemnt is enough to rotate
-                if (rotateOffset.x < Mathf.Abs( tdeltaPos.x))
+                if (rotateOffset.x < Mathf.Abs(deltaPos.x))
                 {
-                    Debug.Log("rotate");
-
                     //move the pos to the table
-                    transform.RotateAround(tableTransform.position, Vector3.up, tdeltaPos.x *180* xPower);
+                    transform.RotateAround(tableTransform.position, Vector3.up, deltaPos.x * 180 * xPower);
                     // the movement is enough to move forward and/or move upward
-                    if (rotateOffset.y < tdeltaPos.y)
-                    {
-                        transform.position += Vector3.up * (tdeltaPos.y) * yPower;
-                    }
+                    MoveUp(rotateOffset);
                 }
                 //else if can move up
-                else if (upOffset < Mathf.Abs(tdeltaPos.y))
+                else 
                 {
-                    transform.position += Vector3.up * (deltaPos.y) * yPower;
+                    MoveUp(upOffset);
                 }
             }
             //in the weird case that the player move the same amount in x and in z
             //if move enough in y axis
             else
             {
-                Debug.Log("moveup");
-                
-                if (upOffset < Mathf.Abs(tdeltaPos.y))
-                {
-                    transform.position += Vector3.up * tdeltaPos.y * yPower;
-                }
+                MoveUp(upOffset);
             }
         }
 
+        private void MoveUp(Vector3 offset)
+        {
+           
+                if (vrHeadSett.position.y - upClamp.position.y > 0 && deltaPos.y < 0)
+                    return;
+                
+                else if (vrHeadSett.position.y - downClamp.position.y < 0 && deltaPos.y > 0)
+                    return;
 
-        private int indexStart = 0;
+                transform.position += Vector3.up * (deltaPos.y) * yPower;
+            
+        }
+        private void MoveUp(float offset)
+        {
+            
+                if (vrHeadSett.position.y - upClamp.position.y > 0 && deltaPos.y < 0)
+                    return;
+                else if (vrHeadSett.position.y - downClamp.position.y < 0 && deltaPos.y > 0)
+                    return;
+                transform.position += Vector3.up * (deltaPos.y) * yPower;
+        }
+        private Vector2 ToVector2XZ(Vector3 a)
+        {
+            return new Vector2(a.x, a.z);
+        }
 
         public void SpawnPiece(GameObject[] peiceToSpawn)
         {
